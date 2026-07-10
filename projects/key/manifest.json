@@ -1,0 +1,9 @@
+{
+  "id": "key",
+  "title": "Ключ",
+  "version": "0.1",
+  "description": "",
+  "stories": [
+    "neo_city"
+  ]
+}

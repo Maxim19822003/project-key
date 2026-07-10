@@ -1,0 +1,16 @@
+{
+  "id": "scene_002",
+  "background": "002_leave.webp",
+  "title": "Window",
+  "text": "A futuristic city stretches beyond the window.",
+  "choices": [
+    {
+      "text": "Move forward",
+      "next": "scene_003"
+    },
+    {
+      "text": "Go back",
+      "next": "scene_001"
+    }
+  ]
+}

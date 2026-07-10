@@ -1,0 +1,10 @@
+{
+  "items": [
+    {
+      "id": "battery",
+      "name": "Battery",
+      "description": "Still works.",
+      "icon": "battery.png"
+    }
+  ]
+}

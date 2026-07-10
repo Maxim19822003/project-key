@@ -1,0 +1,11 @@
+{
+  "id": "scene_001",
+  "title": "Beginning",
+  "text": "This is the first scene of a demo story.",
+  "choices": [
+    {
+      "text": "Continue",
+      "next": "scene_002"
+    }
+  ]
+}

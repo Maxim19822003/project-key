@@ -1,0 +1,9 @@
+{
+  "id": "demo",
+  "title": "Demo Project",
+  "version": "0.1",
+  "description": "Example project for StoryEngine",
+  "stories": [
+    "story_001"
+  ]
+}

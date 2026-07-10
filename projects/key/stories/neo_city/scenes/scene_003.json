@@ -1,0 +1,14 @@
+{
+  "id": "scene_003",
+  "background": "003_robot.webp",
+  "title": "Encounter",
+  "text": "A mechanical creature stands before you.",
+  "music": "ambient_loop.mp3",
+  "choices": [
+    {
+      "text": "Say hello",
+      "next": "scene_001",
+      "sound": "click.mp3"
+    }
+  ]
+}

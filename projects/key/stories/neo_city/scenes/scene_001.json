@@ -1,0 +1,12 @@
+{
+  "id": "scene_001",
+  "background": "001_room.webp",
+  "title": "Room",
+  "text": "You wake up in an unfamiliar room.",
+  "choices": [
+    {
+      "text": "Look around",
+      "next": "scene_002"
+    }
+  ]
+}

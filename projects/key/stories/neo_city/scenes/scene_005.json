@@ -1,0 +1,24 @@
+{
+  "id": "scene_005",
+  "background": "005_corridor.webp",
+  "title": "Коридор",
+  "text": "Ты выходишь в коридор. Перед тобой три двери: кладовка, лифт и подвал.",
+  "ambient": "corridor_ambient.mp3",
+  "choices": [
+    {
+      "text": "Кладовка",
+      "next": "scene_006",
+      "sound": "choice.mp3"
+    },
+    {
+      "text": "Лифт",
+      "next": "scene_009",
+      "sound": "choice.mp3"
+    },
+    {
+      "text": "Подвал",
+      "next": "scene_010",
+      "sound": "choice.mp3"
+    }
+  ]
+}

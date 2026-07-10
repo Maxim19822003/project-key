@@ -1,0 +1,15 @@
+.transition {
+  position: absolute;
+  inset: 0;
+  animation: sceneFadeIn 220ms ease-out;
+}
+
+@keyframes sceneFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

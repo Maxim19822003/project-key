@@ -1,0 +1,13 @@
+{
+  "id": "scene_014",
+  "background": "008_storage_bolt.webp",
+  "title": "Болт",
+  "text": "Ты берёшь тяжёлый болт и кладёшь его в карман.",
+  "choices": [
+    {
+      "text": "Вернуться к зверьку",
+      "next": "scene_008",
+      "sound": "choice.mp3"
+    }
+  ]
+}

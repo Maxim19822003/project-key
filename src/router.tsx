@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
+  CollectionStubScreen,
   InventoryScreen,
   SettingsScreen,
   SplashScreen,
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
   {
     path: '/story/:projectId/:storyId',
     element: <StoryScreen />,
+  },
+  {
+    path: '/collection-stub',
+    element: <CollectionStubScreen />,
   },
   {
     path: '/inventory',

@@ -1,9 +1,33 @@
 {
   "items": [
     {
+      "id": "old_token",
+      "name": "Старый жетон",
+      "description": "Потёртый металлический жетон с незнакомым символом.",
+      "icon": "old_token.png"
+    },
+    {
+      "id": "bolt",
+      "name": "Болт",
+      "description": "Тяжёлый болт. Зверёк сказал, что пригодится.",
+      "icon": "bolt.png"
+    },
+    {
+      "id": "cassette",
+      "name": "Кассета",
+      "description": "Старая кассета с пометкой «Запись №7».",
+      "icon": "cassette.png"
+    },
+    {
+      "id": "damaged_robot",
+      "name": "Повреждённый робот",
+      "description": "Механический зверёк, которого ты выключил.",
+      "icon": "damaged_robot.png"
+    },
+    {
       "id": "battery",
-      "name": "Battery",
-      "description": "Still works.",
+      "name": "Батарейка",
+      "description": "Ещё работает.",
       "icon": "battery.png"
     }
   ]

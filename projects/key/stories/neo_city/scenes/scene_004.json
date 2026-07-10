@@ -1,0 +1,8 @@
+{
+  "id": "scene_004",
+  "background": "004_robot_off.webp",
+  "title": "Тишина",
+  "text": "Ты выключаешь зверька. Его глаза гаснут. В комнате становится непривычно тихо.",
+  "sound": "power_off.mp3",
+  "reward": "damaged_robot"
+}

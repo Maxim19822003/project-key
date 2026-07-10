@@ -1,11 +1,43 @@
 .body {
   position: relative;
-  padding: var(--spacing-sm);
-  gap: var(--spacing-sm);
+  padding: 0;
+  overflow: hidden;
 }
 
 .choices {
   margin-top: var(--spacing-md);
+}
+
+.continueButton {
+  display: block;
+  width: 100%;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.continueButton:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.continueButton:active {
+  transform: scale(0.98);
+}
+
+.fadeOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background-color: #000;
+  animation: fadeOutIn 220ms ease-in-out;
+  pointer-events: none;
 }
 
 .error {
@@ -17,4 +49,18 @@
   color: var(--color-danger);
   font-size: var(--font-size-sm);
   text-align: center;
+}
+
+@keyframes fadeOutIn {
+  0% {
+    opacity: 0;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }

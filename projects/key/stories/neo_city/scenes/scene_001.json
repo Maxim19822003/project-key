@@ -1,12 +1,19 @@
 {
   "id": "scene_001",
   "background": "001_room.webp",
-  "title": "Room",
-  "text": "You wake up in an unfamiliar room.",
+  "title": "Комната",
+  "text": "Ты просыпаешься в незнакомой комнате. На столе лежит загадочная коробка.",
+  "ambient": "room_ambient.mp3",
   "choices": [
     {
-      "text": "Look around",
-      "next": "scene_002"
+      "text": "Открыть коробку",
+      "next": "scene_003",
+      "sound": "choice.mp3"
+    },
+    {
+      "text": "Не трогать и выйти",
+      "next": "scene_002",
+      "sound": "choice.mp3"
     }
   ]
 }

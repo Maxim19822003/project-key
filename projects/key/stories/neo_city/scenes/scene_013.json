@@ -1,0 +1,13 @@
+{
+  "id": "scene_013",
+  "background": "007_storage_battery.webp",
+  "title": "Батарейка",
+  "text": "Ты берёшь батарейку. Она ещё тёплая на ощупь.",
+  "choices": [
+    {
+      "text": "Вернуться к зверьку",
+      "next": "scene_007",
+      "sound": "choice.mp3"
+    }
+  ]
+}

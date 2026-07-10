@@ -1,3 +1,4 @@
+export { CollectionStubScreen } from './CollectionStubScreen';
 export { InventoryScreen } from './InventoryScreen';
 export { SettingsScreen } from './SettingsScreen';
 export { SplashScreen } from './SplashScreen';

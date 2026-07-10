@@ -1,14 +1,19 @@
 {
   "id": "scene_003",
   "background": "003_robot.webp",
-  "title": "Encounter",
-  "text": "A mechanical creature stands before you.",
-  "music": "ambient_loop.mp3",
+  "title": "Механический зверёк",
+  "text": "Из коробки появляется механический зверёк. Его глаза тускло мерцают.\n\n«У меня закончилась энергия... Поможешь?»",
+  "music": "robot_theme.mp3",
   "choices": [
     {
-      "text": "Say hello",
-      "next": "scene_001",
-      "sound": "click.mp3"
+      "text": "Найти батарейку",
+      "next": "scene_005",
+      "sound": "choice.mp3"
+    },
+    {
+      "text": "Выключить его",
+      "next": "scene_004",
+      "sound": "choice.mp3"
     }
   ]
 }

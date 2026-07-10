@@ -1,0 +1,24 @@
+{
+  "id": "scene_009",
+  "background": "009_lift.webp",
+  "title": "Лифт",
+  "text": "Ты входишь в лифт. На панели горят кнопки этажей.",
+  "ambient": "lift_hum.mp3",
+  "choices": [
+    {
+      "text": "1 этаж",
+      "next": "scene_012",
+      "sound": "button.mp3"
+    },
+    {
+      "text": "5 этаж",
+      "next": "scene_012",
+      "sound": "button.mp3"
+    },
+    {
+      "text": "12 этаж",
+      "next": "scene_012",
+      "sound": "button.mp3"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "scene_006",
+  "background": "006_storage.webp",
+  "title": "Кладовка",
+  "text": "На полках лежат три предмета. Похоже, можно взять только один.",
+  "choices": [
+    {
+      "text": "Батарейка",
+      "next": "scene_013",
+      "sound": "choice.mp3"
+    },
+    {
+      "text": "Болт",
+      "next": "scene_014",
+      "sound": "choice.mp3"
+    },
+    {
+      "text": "Кассета",
+      "next": "scene_011",
+      "sound": "choice.mp3"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   getStoryPath,
@@ -21,9 +21,6 @@ export function useWorldMap() {
     [worldSectors],
   );
 
-  const [panelText, setPanelText] = useState('Выберите район Нео-Сити.');
-  const [textComplete, setTextComplete] = useState(true);
-
   const handleSectorClick = useCallback(
     (hotspot: WorldHotspotView) => {
       const sector = worldSectors.find((item) => item.id === hotspot.id);
@@ -35,11 +32,7 @@ export function useWorldMap() {
 
       if (result.type === 'navigate') {
         navigate(getStoryPath(result.projectId, result.storyId));
-        return;
       }
-
-      setPanelText(result.message);
-      setTextComplete(true);
     },
     [config.projectId, navigate, worldSectors],
   );
@@ -47,9 +40,6 @@ export function useWorldMap() {
   return {
     config,
     sectors,
-    panelText,
-    textComplete,
-    setTextComplete,
     handleSectorClick,
   };
 }

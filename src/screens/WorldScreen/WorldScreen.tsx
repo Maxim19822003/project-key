@@ -1,4 +1,4 @@
-import { BottomBar, StoryPanel, TopBar, WorldMapView } from '@/components';
+import { BottomBar, TopBar, WorldMapView } from '@/components';
 import { getWorldMapRegions, isWorldMapDebugEnabled } from '@/game/world';
 import { useWorldMap } from '@/hooks/useWorldMap';
 import '@/styles/screen.css';
@@ -8,20 +8,13 @@ const regions = getWorldMapRegions();
 const worldMapDebug = isWorldMapDebugEnabled();
 
 export function WorldScreen() {
-  const {
-    config,
-    sectors,
-    panelText,
-    textComplete,
-    setTextComplete,
-    handleSectorClick,
-  } = useWorldMap();
+  const { config, sectors, handleSectorClick } = useWorldMap();
 
   return (
     <div
       className={styles.worldScreen}
       style={{
-        gridTemplateRows: `${regions.topBar.h}% ${regions.gameArea.h}% ${regions.bottomMenu.h}%`,
+        gridTemplateRows: `${regions.topBar.h}fr ${regions.gameArea.h}fr ${regions.bottomMenu.h}fr`,
       }}
     >
       <div className={styles.topZone}>
@@ -32,13 +25,8 @@ export function WorldScreen() {
           imageSrc={config.imageSrc}
           imageAlt={config.imageAlt}
           sectors={sectors}
-          sectorsEnabled={textComplete}
           debug={worldMapDebug}
           onSectorClick={handleSectorClick}
-        />
-        <StoryPanel
-          text={panelText}
-          onTextComplete={() => setTextComplete(true)}
         />
       </div>
       <div className={styles.bottomZone}>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { localStoryProvider } from '@/storyEngine';
 import { loadSave } from '@/game/save';
 import type { Scene, Story } from '@/storyEngine/types';
@@ -19,10 +19,19 @@ export function useStoryPlay({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
+  const onSceneChangeRef = useRef(onSceneChange);
+
+  useEffect(() => {
+    onSceneChangeRef.current = onSceneChange;
+  }, [onSceneChange]);
 
   const backgroundUrl = scene?.background
     ? localStoryProvider.loadAssets(projectId, storyId, 'backgrounds', scene.background)
     : undefined;
+
+  const persistScene = useCallback((sceneId: string) => {
+    onSceneChangeRef.current?.(sceneId);
+  }, []);
 
   const loadScene = useCallback(
     async (sceneId: string) => {
@@ -36,7 +45,7 @@ export function useStoryPlay({
           sceneId,
         );
         setScene(nextScene);
-        onSceneChange?.(sceneId);
+        persistScene(sceneId);
 
         window.setTimeout(() => setTransitioning(false), 220);
       } catch (err) {
@@ -45,7 +54,7 @@ export function useStoryPlay({
         setTransitioning(false);
       }
     },
-    [onSceneChange, projectId, storyId],
+    [persistScene, projectId, storyId],
   );
 
   useEffect(() => {
@@ -69,7 +78,12 @@ export function useStoryPlay({
         if (!cancelled) {
           setStory(storyData);
           setScene(initialScene);
-          onSceneChange?.(sceneId);
+
+          if (save.currentSceneId !== sceneId) {
+            persistScene(sceneId);
+          } else if (!save.storyStarted) {
+            persistScene(sceneId);
+          }
         }
       } catch (err) {
         if (!cancelled) {
@@ -88,7 +102,7 @@ export function useStoryPlay({
     return () => {
       cancelled = true;
     };
-  }, [onSceneChange, projectId, storyId]);
+  }, [persistScene, projectId, storyId]);
 
   return {
     story,

@@ -1,6 +1,8 @@
+export type HotspotShape = 'rect' | 'circle' | 'ellipse';
+
 export type HotspotAction = 'navigate' | 'dialog' | 'locked';
 
-export type HotspotAnimation = 'glow' | 'pulse' | 'sway' | 'blink' | 'flicker';
+export type HotspotAnimation = 'sway';
 
 export type HotspotConfig = {
   id: string;
@@ -9,6 +11,7 @@ export type HotspotConfig = {
   width: number;
   height: number;
   label: string;
+  shape?: HotspotShape;
   action: HotspotAction;
   animation?: HotspotAnimation;
   nextScene?: string;

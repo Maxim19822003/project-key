@@ -41,6 +41,10 @@ export function useGameSave() {
   }, []);
 
   const setScene = useCallback((sceneId: string) => {
+    const save = loadSave();
+    if (save.currentSceneId === sceneId && save.storyStarted) {
+      return save;
+    }
     return patchSave({ currentSceneId: sceneId, storyStarted: true });
   }, [patchSave]);
 

@@ -35,6 +35,7 @@ export function WorldScreen() {
           alt="Карта мира Нео-Сити"
           hotspots={WORLD_MAP_HOTSPOTS}
           hotspotsEnabled={textComplete}
+          imageFit="contain"
           onHotspotClick={handleHotspotClick}
         />
         <StoryPanel

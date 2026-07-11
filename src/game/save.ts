@@ -11,20 +11,40 @@ export const DEFAULT_SAVE: GameSave = {
   storyCompleted: false,
 };
 
+let cachedRaw: string | null = null;
+let cachedSave: GameSave = { ...DEFAULT_SAVE };
+
+function setCache(save: GameSave, raw: string | null): GameSave {
+  cachedSave = save;
+  cachedRaw = raw;
+  return cachedSave;
+}
+
 export function loadSave(): GameSave {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return { ...DEFAULT_SAVE };
+
+    if (raw === cachedRaw) {
+      return cachedSave;
     }
-    return { ...DEFAULT_SAVE, ...JSON.parse(raw) as Partial<GameSave> };
+
+    if (!raw) {
+      return setCache({ ...DEFAULT_SAVE }, null);
+    }
+
+    return setCache(
+      { ...DEFAULT_SAVE, ...JSON.parse(raw) as Partial<GameSave> },
+      raw,
+    );
   } catch {
-    return { ...DEFAULT_SAVE };
+    return setCache({ ...DEFAULT_SAVE }, null);
   }
 }
 
 export function writeSave(save: GameSave): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(save));
+  const raw = JSON.stringify(save);
+  localStorage.setItem(STORAGE_KEY, raw);
+  setCache(save, raw);
 }
 
 export function updateSave(patch: Partial<GameSave>): GameSave {
@@ -43,4 +63,5 @@ export function addFoundItem(itemId: string): GameSave {
 
 export function resetSave(): void {
   localStorage.removeItem(STORAGE_KEY);
+  setCache({ ...DEFAULT_SAVE }, null);
 }

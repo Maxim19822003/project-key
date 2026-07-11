@@ -1,0 +1,48 @@
+.bottomMenu {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.item {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-decoration: none;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.stateMuted {
+  color: var(--color-text-muted);
+}
+
+.stateAccent {
+  color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+}
+
+.item:hover {
+  color: var(--color-text);
+  background-color: var(--color-bg-overlay);
+}
+
+.icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.label {
+  text-align: center;
+  line-height: 1.1;
+  font-size: 0.6rem;
+}

@@ -1,0 +1,26 @@
+.toast {
+  position: absolute;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.item_found,
+.key_received,
+.saved {
+  background: rgba(46, 204, 113, 0.9);
+  color: #0a0a0f;
+}
+
+.error {
+  background: rgba(231, 76, 60, 0.9);
+  color: #fff;
+}

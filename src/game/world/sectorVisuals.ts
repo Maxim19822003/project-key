@@ -21,33 +21,17 @@ export function getSectorStateVisual(
 }
 
 const AVAILABLE_GLOW = {
-  idle: {
-    fill: 'rgba(108, 92, 231, 0.1)',
-    stroke: 'rgba(108, 92, 231, 0.4)',
-    strokeWidth: 0.3,
-    opacity: 0.75,
-  },
-  active: {
-    fill: 'rgba(108, 92, 231, 0.22)',
-    stroke: 'rgba(108, 92, 231, 0.85)',
-    strokeWidth: 0.45,
-    opacity: 0.9,
-  },
+  fill: 'rgba(108, 92, 231, 0.22)',
+  stroke: 'rgba(108, 92, 231, 0.85)',
+  strokeWidth: 0.45,
+  opacity: 0.9,
 } as const;
 
 const COMPLETED_GLOW = {
-  idle: {
-    fill: 'rgba(46, 204, 113, 0.1)',
-    stroke: 'rgba(72, 160, 255, 0.45)',
-    strokeWidth: 0.3,
-    opacity: 0.8,
-  },
-  active: {
-    fill: 'rgba(46, 204, 113, 0.22)',
-    stroke: 'rgba(72, 160, 255, 0.85)',
-    strokeWidth: 0.45,
-    opacity: 0.95,
-  },
+  fill: 'rgba(46, 204, 113, 0.22)',
+  stroke: 'rgba(72, 160, 255, 0.85)',
+  strokeWidth: 0.45,
+  opacity: 0.95,
 } as const;
 
 const HIDDEN_STYLE = {
@@ -72,16 +56,16 @@ export function getSectorInteractiveStyle(
     return getSectorStateVisual(state);
   }
 
-  if (visualState === 'locked') {
+  if (visualState === 'locked' || !isActive) {
     return HIDDEN_STYLE;
   }
 
   if (visualState === 'completed') {
-    return isActive ? COMPLETED_GLOW.active : COMPLETED_GLOW.idle;
+    return COMPLETED_GLOW;
   }
 
   if (visualState === 'available') {
-    return isActive ? AVAILABLE_GLOW.active : AVAILABLE_GLOW.idle;
+    return AVAILABLE_GLOW;
   }
 
   return HIDDEN_STYLE;

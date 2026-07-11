@@ -234,63 +234,6 @@ export const SCENE_HOTSPOTS: Record<string, HotspotConfig[]> = {
   ],
 };
 
-export const WORLD_MAP_HOTSPOTS: HotspotConfig[] = [
-  {
-    id: 'neo_city',
-    label: 'Нео-Сити',
-    x: 49,
-    y: 52,
-    width: 18,
-    height: 14,
-    shape: 'ellipse',
-    action: 'navigate',
-  },
-  {
-    id: 'basement',
-    label: 'Подвал',
-    x: 18,
-    y: 72,
-    width: 10,
-    height: 10,
-    shape: 'circle',
-    action: 'locked',
-    lockedMessage: 'Для открытия потребуется новый Ключ.',
-  },
-  {
-    id: 'tower',
-    label: 'Башня',
-    x: 72,
-    y: 22,
-    width: 10,
-    height: 10,
-    shape: 'circle',
-    action: 'locked',
-    lockedMessage: 'Для открытия потребуется новый Ключ.',
-  },
-  {
-    id: 'metro',
-    label: 'Метро',
-    x: 76,
-    y: 66,
-    width: 10,
-    height: 10,
-    shape: 'circle',
-    action: 'locked',
-    lockedMessage: 'Для открытия потребуется новый Ключ.',
-  },
-  {
-    id: 'park',
-    label: 'Старый парк',
-    x: 14,
-    y: 26,
-    width: 12,
-    height: 12,
-    shape: 'circle',
-    action: 'locked',
-    lockedMessage: 'Для открытия потребуется новый Ключ.',
-  },
-];
-
 export function getHotspotsForScene(sceneId: string): HotspotConfig[] {
   return SCENE_HOTSPOTS[sceneId] ?? [];
 }

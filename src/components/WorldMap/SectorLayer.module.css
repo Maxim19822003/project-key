@@ -1,0 +1,105 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+.sector {
+  position: absolute;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.sector:disabled,
+.sector.disabled {
+  pointer-events: none;
+}
+
+.shapeCircle,
+.shapeEllipse {
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.shapePolygon {
+  transform: translate(-50%, -50%);
+  border-radius: 0;
+}
+
+.statusOpen {
+  background: rgba(46, 204, 113, 0.35);
+  box-shadow: 0 0 18px rgba(46, 204, 113, 0.45);
+}
+
+.statusOpen:hover:not(:disabled),
+.statusOpen:focus-visible:not(:disabled) {
+  background: rgba(46, 204, 113, 0.55);
+  box-shadow: 0 0 28px rgba(108, 255, 180, 0.75);
+  filter: brightness(1.15);
+}
+
+.statusCompleted {
+  background: rgba(155, 89, 255, 0.35);
+  box-shadow: 0 0 18px rgba(155, 89, 255, 0.5);
+}
+
+.statusCompleted:hover:not(:disabled),
+.statusCompleted:focus-visible:not(:disabled) {
+  background: rgba(155, 89, 255, 0.5);
+  box-shadow: 0 0 28px rgba(190, 130, 255, 0.8);
+}
+
+.statusLocked {
+  background: rgba(120, 120, 140, 0.28);
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.statusLocked:hover:not(:disabled),
+.statusLocked:focus-visible:not(:disabled) {
+  opacity: 0.85;
+  box-shadow: 0 0 16px rgba(160, 160, 180, 0.4);
+}
+
+.pulse.statusOpen {
+  animation: sectorPulseOpen 2.4s ease-in-out infinite;
+}
+
+.pulse.statusCompleted {
+  animation: sectorPulseCompleted 2.4s ease-in-out infinite;
+}
+
+.lockIcon {
+  font-size: 0.85rem;
+  line-height: 1;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+@keyframes sectorPulseOpen {
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(46, 204, 113, 0.35);
+  }
+
+  50% {
+    box-shadow: 0 0 26px rgba(46, 204, 113, 0.7);
+  }
+}
+
+@keyframes sectorPulseCompleted {
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(155, 89, 255, 0.35);
+  }
+
+  50% {
+    box-shadow: 0 0 26px rgba(155, 89, 255, 0.75);
+  }
+}

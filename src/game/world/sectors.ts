@@ -1,66 +1,20 @@
+import { getWorldMapSectorDefs } from '@/game/world/uiLayout';
 import type { WorldSectorDef } from '@/game/world/types';
 
-export const WORLD_SECTOR_DEFS: WorldSectorDef[] = [
-  {
-    id: 'neo_city',
-    title: 'Нео-Сити',
-    description: 'Центральный район. Здесь начинается первая история.',
-    storyId: 'neo_city',
-    requiredKey: null,
-    defaultStatus: 'open',
-    shape: 'ellipse',
-    coordinates: { cx: 0.49, cy: 0.52, rx: 0.09, ry: 0.07 },
-    animation: 'pulse',
-  },
-  {
-    id: 'forest',
-    title: 'Лес',
-    description: 'Заросший сектор на окраине города.',
-    storyId: null,
-    requiredKey: 'key_forest',
-    defaultStatus: 'locked',
-    shape: 'circle',
-    coordinates: { cx: 0.14, cy: 0.26, rx: 0.06 },
-  },
-  {
-    id: 'metro',
-    title: 'Метро',
-    description: 'Подземные тоннели, скрытые от поверхностного мира.',
-    storyId: null,
-    requiredKey: 'key_metro',
-    defaultStatus: 'locked',
-    shape: 'circle',
-    coordinates: { cx: 0.76, cy: 0.66, rx: 0.05 },
-  },
-  {
-    id: 'tower',
-    title: 'Башня',
-    description: 'Высотная башня на северо-востоке карты.',
-    storyId: null,
-    requiredKey: 'key_tower',
-    defaultStatus: 'locked',
-    shape: 'circle',
-    coordinates: { cx: 0.72, cy: 0.22, rx: 0.05 },
-  },
-  {
-    id: 'ruins',
-    title: 'Руины',
-    description: 'Разрушенный сектор в юго-западной части мира.',
-    storyId: null,
-    requiredKey: 'key_ruins',
-    defaultStatus: 'locked',
-    shape: 'polygon',
-    coordinates: {
-      cx: 0.18,
-      cy: 0.72,
-      rx: 0.07,
-      ry: 0.06,
-      points: [
-        { x: 0.14, y: 0.68 },
-        { x: 0.22, y: 0.68 },
-        { x: 0.24, y: 0.76 },
-        { x: 0.12, y: 0.76 },
-      ],
-    },
-  },
-];
+function toWorldSectorDef(
+  sector: ReturnType<typeof getWorldMapSectorDefs>[number],
+): WorldSectorDef {
+  return {
+    id: sector.id,
+    title: sector.title,
+    storyId: sector.storyId,
+    defaultStatus: sector.status,
+    center: sector.center,
+    radius: sector.radius,
+    animation: sector.status === 'open' ? 'pulse' : 'none',
+  };
+}
+
+export function getWorldSectorDefs(): WorldSectorDef[] {
+  return getWorldMapSectorDefs().map(toWorldSectorDef);
+}

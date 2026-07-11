@@ -1,26 +1,14 @@
 export type SectorStatus = 'locked' | 'open' | 'completed';
 
-export type WorldShapeType = 'circle' | 'ellipse' | 'polygon';
-
 export type WorldAnimation = 'pulse' | 'none';
-
-export type WorldCoordinates = {
-  cx: number;
-  cy: number;
-  rx: number;
-  ry?: number;
-  points?: Array<{ x: number; y: number }>;
-};
 
 export type WorldSectorDef = {
   id: string;
   title: string;
-  description: string;
   storyId: string | null;
-  requiredKey: string | null;
   defaultStatus: SectorStatus;
-  shape: WorldShapeType;
-  coordinates: WorldCoordinates;
+  center: { x: number; y: number };
+  radius: number;
   animation?: WorldAnimation;
 };
 
@@ -32,9 +20,8 @@ export type WorldSector = WorldSectorDef & {
 export type WorldHotspotView = {
   id: string;
   title: string;
-  description: string;
-  shape: WorldShapeType;
-  coordinates: WorldCoordinates;
+  center: { x: number; y: number };
+  radius: number;
   status: SectorStatus;
   animation: WorldAnimation;
   storyId: string | null;

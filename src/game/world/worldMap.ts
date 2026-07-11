@@ -1,6 +1,6 @@
 import type { GameSave } from '@/game/types';
-import { WORLD_MAP_CONFIG } from '@/game/world/config';
-import { WORLD_SECTOR_DEFS } from '@/game/world/sectors';
+import { getWorldMapConfigFromLayout } from '@/game/world/config';
+import { getWorldSectorDefs } from '@/game/world/sectors';
 import {
   LOCKED_SECTOR_MESSAGE,
   type SectorClickResult,
@@ -12,14 +12,6 @@ import {
 } from '@/game/world/types';
 
 export { LOCKED_SECTOR_MESSAGE };
-
-function hasRequiredKey(sector: WorldSectorDef, save: GameSave): boolean {
-  if (!sector.requiredKey) {
-    return true;
-  }
-
-  return save.foundItems.includes(sector.requiredKey);
-}
 
 function resolveStoryProgress(sector: WorldSectorDef, save: GameSave): number {
   if (!sector.storyId || save.storyId !== sector.storyId) {
@@ -45,7 +37,7 @@ export function resolveSectorStatus(
     return 'completed';
   }
 
-  if (sector.defaultStatus === 'locked' && !hasRequiredKey(sector, save)) {
+  if (sector.defaultStatus === 'locked') {
     return 'locked';
   }
 
@@ -75,16 +67,15 @@ export function buildWorldSector(
 }
 
 export function getWorldSectors(save: GameSave): WorldSector[] {
-  return WORLD_SECTOR_DEFS.map((sector) => buildWorldSector(sector, save));
+  return getWorldSectorDefs().map((sector) => buildWorldSector(sector, save));
 }
 
 export function toHotspotView(sector: WorldSector): WorldHotspotView {
   return {
     id: sector.id,
     title: sector.title,
-    description: sector.description,
-    shape: sector.shape,
-    coordinates: sector.coordinates,
+    center: sector.center,
+    radius: sector.radius,
     status: sector.status,
     animation: sector.animation ?? 'none',
     storyId: sector.storyId,
@@ -96,7 +87,7 @@ export function getWorldHotspots(save: GameSave): WorldHotspotView[] {
 }
 
 export function getWorldMapConfig(): WorldMapConfig {
-  return WORLD_MAP_CONFIG;
+  return getWorldMapConfigFromLayout();
 }
 
 export function resolveSectorClick(
@@ -120,7 +111,7 @@ export function resolveSectorClick(
 
   return {
     type: 'info',
-    message: sector.description,
+    message: sector.title,
   };
 }
 

@@ -1,5 +1,25 @@
-.body {
+.worldScreen {
+  display: grid;
+  grid-template-columns: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.topZone {
+  --topbar-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.gameZone {
   position: relative;
-  padding: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.bottomZone {
+  --bottombar-height: 100%;
+  min-height: 0;
   overflow: hidden;
 }

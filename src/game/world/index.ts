@@ -2,17 +2,28 @@ export type {
   SectorClickResult,
   SectorStatus,
   WorldAnimation,
-  WorldCoordinates,
   WorldHotspotView,
   WorldMapConfig,
   WorldSector,
   WorldSectorDef,
-  WorldShapeType,
 } from '@/game/world/types';
 
+export type {
+  LayoutRect,
+  SectorCenter,
+  SectorLayoutDef,
+  WorldMapLayout,
+} from '@/game/world/uiLayout';
+
 export { LOCKED_SECTOR_MESSAGE } from '@/game/world/types';
-export { WORLD_MAP_CONFIG } from '@/game/world/config';
-export { WORLD_SECTOR_DEFS } from '@/game/world/sectors';
+export { getWorldMapConfigFromLayout } from '@/game/world/config';
+export { getWorldSectorDefs } from '@/game/world/sectors';
+export {
+  getWorldMapLayout,
+  getWorldMapMeta,
+  getWorldMapRegions,
+  getWorldMapSectorDefs,
+} from '@/game/world/uiLayout';
 export {
   buildWorldSector,
   getStoryPath,

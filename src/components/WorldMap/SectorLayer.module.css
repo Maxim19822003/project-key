@@ -21,15 +21,9 @@
   pointer-events: none;
 }
 
-.shapeCircle,
-.shapeEllipse {
+.shapeCircle {
   transform: translate(-50%, -50%);
   border-radius: 50%;
-}
-
-.shapePolygon {
-  transform: translate(-50%, -50%);
-  border-radius: 0;
 }
 
 .statusOpen {

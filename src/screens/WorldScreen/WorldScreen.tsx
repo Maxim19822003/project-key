@@ -1,7 +1,10 @@
 import { BottomBar, StoryPanel, TopBar, WorldMapView } from '@/components';
+import { getWorldMapRegions } from '@/game/world';
 import { useWorldMap } from '@/hooks/useWorldMap';
 import '@/styles/screen.css';
 import styles from './WorldScreen.module.css';
+
+const regions = getWorldMapRegions();
 
 export function WorldScreen() {
   const {
@@ -14,9 +17,16 @@ export function WorldScreen() {
   } = useWorldMap();
 
   return (
-    <div className="screen">
-      <TopBar title="Нео-Сити" subtitle="Карта мира" />
-      <div className={`screen__body ${styles.body}`}>
+    <div
+      className={styles.worldScreen}
+      style={{
+        gridTemplateRows: `${regions.topBar.h}% ${regions.gameArea.h}% ${regions.bottomMenu.h}%`,
+      }}
+    >
+      <div className={styles.topZone}>
+        <TopBar title="Нео-Сити" subtitle="Карта мира" />
+      </div>
+      <div className={styles.gameZone}>
         <WorldMapView
           imageSrc={config.imageSrc}
           imageAlt={config.imageAlt}
@@ -29,7 +39,9 @@ export function WorldScreen() {
           onTextComplete={() => setTextComplete(true)}
         />
       </div>
-      <BottomBar />
+      <div className={styles.bottomZone}>
+        <BottomBar />
+      </div>
     </div>
   );
 }

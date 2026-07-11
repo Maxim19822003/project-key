@@ -1,7 +1,12 @@
+import { getWorldMapMeta } from '@/game/world/uiLayout';
 import type { WorldMapConfig } from '@/game/world/types';
 
-export const WORLD_MAP_CONFIG: WorldMapConfig = {
-  projectId: 'key',
-  imageSrc: '/projects/key/assets/world_map.webp',
-  imageAlt: 'Карта мира Нео-Сити',
-};
+export function getWorldMapConfigFromLayout(): WorldMapConfig {
+  const map = getWorldMapMeta();
+
+  return {
+    projectId: map.projectId,
+    imageSrc: map.imageSrc,
+    imageAlt: map.imageAlt,
+  };
+}

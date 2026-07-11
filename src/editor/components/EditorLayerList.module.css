@@ -1,0 +1,39 @@
+.list {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 110;
+  pointer-events: none;
+  width: min(12rem, 30vw);
+  max-height: 30%;
+  overflow: auto;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(8, 10, 18, 0.9);
+  border: 1px solid rgba(120, 150, 220, 0.3);
+}
+
+.title {
+  font-size: 0.62rem;
+  color: #9fd0ff;
+  margin-bottom: 0.35rem;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  gap: 0.25rem;
+  font-size: 0.58rem;
+  color: rgba(255, 255, 255, 0.82);
+  padding: 0.12rem 0;
+}
+
+.layer {
+  color: rgba(180, 200, 255, 0.8);
+  font-family: monospace;
+}
+
+.type {
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+}

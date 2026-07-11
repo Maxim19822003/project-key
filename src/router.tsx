@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { AppLayout } from '@/AppLayout';
 import {
   CollectionStubScreen,
   InventoryScreen,
@@ -10,27 +11,32 @@ import {
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <SplashScreen />,
-  },
-  {
-    path: '/world',
-    element: <WorldScreen />,
-  },
-  {
-    path: '/story/:projectId/:storyId',
-    element: <StoryScreen />,
-  },
-  {
-    path: '/collection-stub',
-    element: <CollectionStubScreen />,
-  },
-  {
-    path: '/inventory',
-    element: <InventoryScreen />,
-  },
-  {
-    path: '/settings',
-    element: <SettingsScreen />,
+    element: <AppLayout />,
+    children: [
+      {
+        path: '/',
+        element: <SplashScreen />,
+      },
+      {
+        path: '/world',
+        element: <WorldScreen />,
+      },
+      {
+        path: '/story/:projectId/:storyId',
+        element: <StoryScreen />,
+      },
+      {
+        path: '/collection-stub',
+        element: <CollectionStubScreen />,
+      },
+      {
+        path: '/inventory',
+        element: <InventoryScreen />,
+      },
+      {
+        path: '/settings',
+        element: <SettingsScreen />,
+      },
+    ],
   },
 ]);

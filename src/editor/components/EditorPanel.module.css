@@ -1,0 +1,80 @@
+.panel {
+  position: absolute;
+  top: 2.5rem;
+  right: 0.5rem;
+  width: min(16rem, 34vw);
+  max-height: calc(100% - 3rem);
+  overflow: auto;
+  z-index: 120;
+  pointer-events: auto;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(8, 10, 18, 0.94);
+  border: 1px solid rgba(120, 150, 220, 0.35);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.title {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.meta {
+  margin: 0 0 0.65rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.meta div {
+  display: grid;
+  grid-template-columns: 4.8rem 1fr;
+  gap: 0.35rem;
+  font-size: 0.62rem;
+}
+
+.meta dt {
+  color: rgba(180, 200, 255, 0.75);
+}
+
+.meta dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.colorSwatch {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-right: 0.25rem;
+  border-radius: 0.15rem;
+  vertical-align: middle;
+}
+
+.copyButton {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid rgba(120, 180, 255, 0.45);
+  border-radius: 0.35rem;
+  background: rgba(60, 100, 180, 0.35);
+  color: #fff;
+  font-size: 0.68rem;
+  cursor: pointer;
+}
+
+.preview {
+  margin: 0;
+  padding: 0.45rem;
+  border-radius: 0.35rem;
+  background: rgba(0, 0, 0, 0.35);
+  font-size: 0.55rem;
+  line-height: 1.35;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

@@ -1,0 +1,80 @@
+.selection {
+  position: absolute;
+  z-index: 90;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: 2px solid #ffd86b;
+  box-shadow: 0 0 0 1px rgba(10, 10, 15, 0.8);
+}
+
+.moveArea {
+  position: absolute;
+  inset: 0;
+  cursor: move;
+  pointer-events: auto;
+}
+
+.handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(10, 10, 15, 0.9);
+  border-radius: 2px;
+  background: #ffd86b;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.handle_n,
+.handle_s {
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: ns-resize;
+}
+
+.handle_e,
+.handle_w {
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: ew-resize;
+}
+
+.handle_n {
+  top: -5px;
+}
+
+.handle_s {
+  bottom: -5px;
+}
+
+.handle_e {
+  right: -5px;
+}
+
+.handle_w {
+  left: -5px;
+}
+
+.handle_ne {
+  top: -5px;
+  right: -5px;
+  cursor: nesw-resize;
+}
+
+.handle_nw {
+  top: -5px;
+  left: -5px;
+  cursor: nwse-resize;
+}
+
+.handle_se {
+  right: -5px;
+  bottom: -5px;
+  cursor: nwse-resize;
+}
+
+.handle_sw {
+  left: -5px;
+  bottom: -5px;
+  cursor: nesw-resize;
+}

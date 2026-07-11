@@ -1,0 +1,48 @@
+.box {
+  position: absolute;
+  border: 1px dashed;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+.passive {
+  pointer-events: none;
+}
+
+.selected {
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.safeZone {
+  border-style: solid;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  top: -1.1rem;
+  left: 0;
+  padding: 0.1rem 0.35rem;
+  background: rgba(8, 8, 16, 0.88);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.58rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.center {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffd86b;
+  border: 1px solid rgba(10, 10, 15, 0.9);
+  pointer-events: none;
+}

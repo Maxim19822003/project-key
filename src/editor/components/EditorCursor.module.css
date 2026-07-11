@@ -1,0 +1,27 @@
+.cursor {
+  position: absolute;
+  z-index: 80;
+  pointer-events: none;
+  transform: translate(8px, 8px);
+}
+
+.badge {
+  display: block;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.25rem;
+  background: rgba(10, 10, 20, 0.92);
+  color: #9fd0ff;
+  font-size: 0.65rem;
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+.area {
+  display: block;
+  margin-top: 0.15rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  background: rgba(10, 10, 20, 0.75);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.6rem;
+}

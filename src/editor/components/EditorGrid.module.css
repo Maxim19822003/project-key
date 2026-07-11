@@ -1,0 +1,28 @@
+.grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lineVertical,
+.lineHorizontal {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.lineVertical {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.lineHorizontal {
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.lineMajor {
+  background: rgba(120, 180, 255, 0.22);
+}

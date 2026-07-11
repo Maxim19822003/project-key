@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { LayoutRect } from '@/game/inventory/types';
+import type { LayoutRect } from '@/game/layout/types';
 
 export function rectToPercentStyle(rect: LayoutRect): CSSProperties {
   return {

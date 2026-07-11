@@ -1,34 +1,25 @@
-.body {
+.storyScreen {
   position: relative;
-  padding: 0;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 
-.choices {
-  margin-top: var(--spacing-md);
+.layoutLayer {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.continueButton {
-  display: block;
-  width: 100%;
-  margin-top: var(--spacing-md);
-  padding: var(--spacing-md) var(--spacing-lg);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-text);
-  background-color: var(--color-accent);
-  border-radius: var(--radius-full);
-  transition: background-color 0.15s ease, transform 0.1s ease;
-}
-
-.continueButton:hover {
-  background-color: var(--color-accent-hover);
-}
-
-.continueButton:active {
-  transform: scale(0.98);
+.topZone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  --topbar-height: 100%;
+  z-index: 10;
+  overflow: hidden;
 }
 
 .fadeOverlay {
@@ -41,7 +32,8 @@
 }
 
 .error {
-  flex: 1;
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;

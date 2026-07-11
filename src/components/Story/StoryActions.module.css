@@ -1,0 +1,31 @@
+.actionsArea {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(10, 10, 15, 0.95);
+  z-index: 5;
+  box-sizing: border-box;
+}
+
+.actionButton {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.actionButton:hover {
+  background: var(--color-accent-hover);
+  opacity: 0.85;
+}
+
+.single {
+  flex: 1;
+}

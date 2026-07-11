@@ -1,9 +1,6 @@
-export type LayoutRect = {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-};
+import type { LayoutRect } from '@/game/layout/types';
+
+export type { LayoutRect };
 
 export type CollectionCategoryDef = {
   id: string;

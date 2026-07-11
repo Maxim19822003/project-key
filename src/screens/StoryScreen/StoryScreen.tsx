@@ -1,21 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import {
-  BottomBar,
-  InteractiveScene,
-  Loading,
-  RewardModal,
-  SceneTransition,
-  StoryPanel,
-  TopBar,
-} from '@/components';
+import { Loading, SceneTransition, StoryView, TopBar } from '@/components';
 import { getHotspotsForScene } from '@/game/hotspots';
+import { getStoryRegions } from '@/game/storyLayout';
+import type { StoryActionItem } from '@/game/storyLayout';
 import type { HotspotConfig } from '@/game/types';
 import { useGameSave } from '@/hooks/useGameSave';
 import { useSceneAudio } from '@/hooks/useSceneAudio';
 import { useStoryPlay } from '@/hooks/useStoryPlay';
-import '@/styles/screen.css';
 import styles from './StoryScreen.module.css';
+
+const regions = getStoryRegions();
 
 export function StoryScreen() {
   const { projectId, storyId } = useParams<{
@@ -106,53 +101,62 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
     }
   };
 
+  const handleAction = (action: StoryActionItem) => {
+    if (action.type === 'ending') {
+      completeStory();
+      navigate('/world');
+      return;
+    }
+
+    if (action.hotspot) {
+      handleHotspotClick(action.hotspot);
+    }
+  };
+
   const handleRewardContinue = () => {
     setShowReward(false);
     completeStory();
     navigate('/world');
   };
 
-  const handleEndingContinue = () => {
-    completeStory();
-    navigate('/world');
-  };
-
   return (
-    <div className="screen">
-      <TopBar title="Нео-Сити" subtitle="История 1/10" />
-      <div className={`screen__body ${styles.body}`}>
+    <div className={styles.storyScreen}>
+      <div className={styles.layoutLayer}>
         {loading && !scene ? (
           <Loading label="Загрузка истории" />
         ) : error ? (
           <div className={styles.error}>{error}</div>
         ) : scene ? (
           <SceneTransition sceneKey={scene.id}>
-            <InteractiveScene
+            <StoryView
+              sceneTitle={scene.title}
+              panelText={panelText}
               imageSrc={backgroundUrl}
-              alt={scene.title ?? 'Сцена'}
+              imageAlt={scene.title ?? 'Сцена'}
               hotspots={hotspots}
               hotspotsEnabled={textComplete && !showReward}
               dimmed={transitioning || showReward}
-              onHotspotClick={handleHotspotClick}
-            />
-            <StoryPanel
-              text={panelText}
+              textComplete={textComplete}
+              isEnding={isEnding}
+              showReward={showReward}
+              pendingReward={pendingReward}
               onTextComplete={handleTextComplete}
-              actionLabel={isEnding && textComplete ? 'Продолжить' : undefined}
-              onAction={isEnding && textComplete ? handleEndingContinue : undefined}
+              onHotspotClick={handleHotspotClick}
+              onAction={handleAction}
+              onRewardContinue={handleRewardContinue}
             />
-            {transitioning && <div className={styles.fadeOverlay} aria-hidden="true" />}
-            {pendingReward && (
-              <RewardModal
-                rewardId={pendingReward}
-                visible={showReward}
-                onContinue={handleRewardContinue}
-              />
+            {transitioning && (
+              <div className={styles.fadeOverlay} aria-hidden="true" />
             )}
           </SceneTransition>
         ) : null}
       </div>
-      <BottomBar />
+      <div
+        className={styles.topZone}
+        style={{ height: `${regions.topBar.h}%` }}
+      >
+        <TopBar title="Нео-Сити" subtitle="История 1/10" />
+      </div>
     </div>
   );
 }

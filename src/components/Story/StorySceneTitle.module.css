@@ -1,0 +1,27 @@
+.titleArea {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-md);
+  background: rgba(10, 10, 15, 0.9);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 3;
+  overflow: hidden;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+}

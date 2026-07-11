@@ -1,0 +1,77 @@
+.panel {
+  position: absolute;
+  top: 3.2rem;
+  right: 0.5rem;
+  width: min(15rem, 34vw);
+  max-height: calc(100% - 4rem);
+  overflow: auto;
+  z-index: 130;
+  pointer-events: auto;
+  padding: 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(8, 10, 18, 0.94);
+  border: 1px solid rgba(120, 150, 220, 0.35);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.title {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  color: #ffb86b;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.field {
+  display: grid;
+  gap: 0.15rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.6rem;
+}
+
+.field label {
+  color: rgba(180, 200, 255, 0.8);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid rgba(120, 150, 220, 0.3);
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 0.6rem;
+  padding: 0.2rem 0.3rem;
+}
+
+.field textarea {
+  min-height: 3rem;
+  resize: vertical;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+}
+
+.actions button {
+  border: 1px solid rgba(120, 150, 220, 0.3);
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 0.58rem;
+  padding: 0.3rem;
+  cursor: pointer;
+}

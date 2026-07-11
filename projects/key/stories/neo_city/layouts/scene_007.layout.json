@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "sceneId": "scene_007",
+  "storyId": "neo_city",
+  "projectId": "key",
+  "flow": {
+    "ending": true
+  },
+  "objects": [
+    {
+      "id": "reward_popup",
+      "type": "reward",
+      "label": "Область награды",
+      "shape": { "type": "rectangle" },
+      "space": "screen",
+      "x": 12,
+      "y": 18,
+      "width": 76,
+      "height": 64,
+      "rotation": 0,
+      "scale": 1,
+      "zIndex": 50,
+      "animation": [],
+      "cursor": "default",
+      "tooltip": "Popup награды",
+      "visible": true,
+      "locked": false
+    }
+  ]
+}

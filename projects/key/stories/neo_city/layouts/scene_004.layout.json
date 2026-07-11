@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "sceneId": "scene_004",
+  "storyId": "neo_city",
+  "projectId": "key",
+  "flow": {
+    "ending": true
+  },
+  "objects": []
+}

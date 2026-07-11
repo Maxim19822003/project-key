@@ -1,0 +1,114 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.screenCanvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.illustrationCanvas,
+.screenObjects,
+.canvas {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.canvas,
+.screenObjects {
+  inset: 0;
+}
+
+.safeZone {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: rgba(255, 80, 80, 0.16);
+  border-top: 1px dashed rgba(255, 120, 120, 0.7);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cursorBadge {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 135;
+  pointer-events: none;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.25rem;
+  background: rgba(8, 10, 18, 0.92);
+  color: #9fd0ff;
+  font-size: 0.62rem;
+  font-family: monospace;
+}
+
+.layerBadge {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 135;
+  pointer-events: none;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.25rem;
+  background: rgba(8, 10, 18, 0.92);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.6rem;
+}
+
+.importModal {
+  position: absolute;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+}
+
+.importCard {
+  width: min(28rem, 90vw);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(8, 10, 18, 0.96);
+  border: 1px solid rgba(120, 150, 220, 0.35);
+  color: #fff;
+}
+
+.importCard h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+}
+
+.importCard textarea {
+  width: 100%;
+  min-height: 12rem;
+  border: 1px solid rgba(120, 150, 220, 0.35);
+  border-radius: 0.35rem;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 0.62rem;
+  padding: 0.45rem;
+}
+
+.importActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.importActions button {
+  border: 1px solid rgba(120, 150, 220, 0.35);
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 0.65rem;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+}

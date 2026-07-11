@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "sceneId": "scene_013",
+  "storyId": "neo_city",
+  "projectId": "key",
+  "flow": {
+    "autoNavigate": "scene_007",
+    "silentReward": "battery"
+  },
+  "objects": []
+}

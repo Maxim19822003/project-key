@@ -1,0 +1,47 @@
+.toolbar {
+  position: absolute;
+  top: 0.35rem;
+  left: 0.35rem;
+  right: 0.35rem;
+  z-index: 140;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  align-items: center;
+  pointer-events: auto;
+  padding: 0.35rem 0.45rem;
+  border-radius: 0.45rem;
+  background: rgba(8, 10, 18, 0.94);
+  border: 1px solid rgba(120, 150, 220, 0.35);
+}
+
+.brand {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #ffb86b;
+  margin-right: 0.25rem;
+}
+
+.toggle,
+.action {
+  padding: 0.2rem 0.45rem;
+  border: 1px solid rgba(120, 150, 220, 0.3);
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.6rem;
+  cursor: pointer;
+}
+
+.toggleActive {
+  background: rgba(255, 160, 60, 0.35);
+  border-color: rgba(255, 180, 100, 0.7);
+}
+
+.select {
+  font-size: 0.6rem;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  border: 1px solid rgba(120, 150, 220, 0.35);
+  border-radius: 0.25rem;
+}

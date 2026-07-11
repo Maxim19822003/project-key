@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "sceneId": "scene_003",
+  "storyId": "neo_city",
+  "projectId": "key",
+  "flow": {
+    "actions": [
+      { "id": "power_off", "label": "Выключить", "nextScene": "scene_004" },
+      { "id": "find_battery", "label": "Найти батарейку", "nextScene": "scene_005" }
+    ]
+  },
+  "objects": [
+    {
+      "id": "robot",
+      "type": "npc",
+      "label": "Зверёк",
+      "shape": { "type": "rectangle" },
+      "space": "illustration",
+      "x": 28,
+      "y": 32,
+      "width": 44,
+      "height": 48,
+      "rotation": 0,
+      "scale": 1,
+      "zIndex": 10,
+      "animation": ["sway", "glow", "blink", "float"],
+      "cursor": "pointer",
+      "tooltip": "Зверёк",
+      "visible": true,
+      "locked": false,
+      "primary": true,
+      "action": "dialog",
+      "dialog": "«У меня закончилась энергия... Поможешь?»"
+    }
+  ]
+}

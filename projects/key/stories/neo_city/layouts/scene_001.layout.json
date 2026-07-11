@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "sceneId": "scene_001",
+  "storyId": "neo_city",
+  "projectId": "key",
+  "flow": {
+    "earlyHotspots": true
+  },
+  "objects": [
+    {
+      "id": "box",
+      "type": "hotspot",
+      "label": "Коробка",
+      "shape": { "type": "rectangle" },
+      "space": "illustration",
+      "x": 38,
+      "y": 58,
+      "width": 22,
+      "height": 18,
+      "rotation": 0,
+      "scale": 1,
+      "zIndex": 10,
+      "animation": ["pulse", "glow", "sway"],
+      "cursor": "pointer",
+      "tooltip": "Коробка",
+      "visible": true,
+      "locked": false,
+      "primary": true,
+      "action": "navigate",
+      "nextScene": "scene_003"
+    }
+  ]
+}

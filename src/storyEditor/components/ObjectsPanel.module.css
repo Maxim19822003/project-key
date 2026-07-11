@@ -1,0 +1,75 @@
+.panel {
+  position: absolute;
+  top: 3.2rem;
+  left: 0.5rem;
+  width: min(13rem, 30vw);
+  max-height: calc(100% - 4rem);
+  overflow: auto;
+  z-index: 130;
+  pointer-events: auto;
+  padding: 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(8, 10, 18, 0.94);
+  border: 1px solid rgba(120, 150, 220, 0.35);
+}
+
+.title {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  color: #ffb86b;
+}
+
+.item {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 0.35rem;
+  padding: 0.25rem;
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.itemSelected {
+  outline: 1px solid rgba(255, 180, 100, 0.8);
+}
+
+.itemHidden {
+  opacity: 0.55;
+}
+
+.nameButton {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  gap: 0.25rem;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.6rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.layer {
+  font-family: monospace;
+  color: rgba(180, 200, 255, 0.8);
+}
+
+.type {
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+}
+
+.controls {
+  display: flex;
+  gap: 0.15rem;
+}
+
+.controls button {
+  flex: 1;
+  border: 1px solid rgba(120, 150, 220, 0.25);
+  border-radius: 0.2rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 0.55rem;
+  cursor: pointer;
+}

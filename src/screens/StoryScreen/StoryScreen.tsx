@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { SceneEffect } from '@/components/InteractiveScene';
 import { Loading, SceneTransition, StoryView, TopBar } from '@/components';
 import { getHotspotsForScene } from '@/game/hotspots';
 import {
-  NEO_CITY_AUTO_NAVIGATE,
-  NEO_CITY_SILENT_REWARDS,
+  getNeoCityAutoNavigate,
+  getNeoCitySilentReward,
+  isNeoCityEarlyHotspotScene,
 } from '@/game/neoCityGuide';
 import { getStoryRegions } from '@/game/storyLayout';
 import type { StoryActionItem } from '@/game/storyLayout';
 import type { HotspotConfig } from '@/game/types';
+import { isStoryEditorEnabled } from '@/storyEditor/isStoryEditorEnabled';
 import { useGameSave } from '@/hooks/useGameSave';
 import { useSceneAudio } from '@/hooks/useSceneAudio';
 import { useStoryPlay } from '@/hooks/useStoryPlay';
@@ -19,7 +21,12 @@ const regions = getStoryRegions();
 const BOX_OPEN_DURATION_MS = 700;
 const AUTO_NAVIGATE_DELAY_MS = 700;
 const POWER_ON_DURATION_MS = 1200;
-const SCENES_WITH_EARLY_HOTSPOTS = new Set(['scene_001']);
+
+const StoryEditorOverlay = lazy(() =>
+  import('@/storyEditor/StoryEditorOverlay').then((module) => ({
+    default: module.StoryEditorOverlay,
+  })),
+);
 
 export function StoryScreen() {
   const { projectId, storyId } = useParams<{
@@ -42,6 +49,7 @@ type StoryPlayerProps = {
 function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
   const navigate = useNavigate();
   const { collectItem, setScene, completeStory } = useGameSave();
+  const storyEditorOn = isStoryEditorEnabled();
 
   const {
     scene,
@@ -72,15 +80,13 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
   );
 
   const hotspots = useMemo(
-    () => (scene ? getHotspotsForScene(scene.id) : []),
-    [scene],
+    () => (scene ? getHotspotsForScene(scene.id, projectId, storyId) : []),
+    [scene, projectId, storyId],
   );
 
   const isEnding = Boolean(scene && !scene.reward && hotspots.length === 0);
   const rewardId = scene?.reward;
-  const earlyHotspots = scene
-    ? SCENES_WITH_EARLY_HOTSPOTS.has(scene.id)
-    : false;
+  const earlyHotspots = scene ? isNeoCityEarlyHotspotScene(scene.id) : false;
 
   const clearTimers = useCallback(() => {
     if (autoNavigateTimerRef.current) {
@@ -117,12 +123,12 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
   const handleTextComplete = useCallback(() => {
     setTextComplete(true);
 
-    const silentReward = scene ? NEO_CITY_SILENT_REWARDS[scene.id] : undefined;
+    const silentReward = scene ? getNeoCitySilentReward(scene.id) : undefined;
     if (silentReward) {
       collectItem(silentReward);
     }
 
-    const autoNext = scene ? NEO_CITY_AUTO_NAVIGATE[scene.id] : undefined;
+    const autoNext = scene ? getNeoCityAutoNavigate(scene.id) : undefined;
     if (autoNext) {
       setInteractionLocked(true);
       autoNavigateTimerRef.current = setTimeout(() => {
@@ -139,7 +145,7 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
   }, [collectItem, navigateToScene, rewardId, scene]);
 
   const handleHotspotClick = (hotspot: HotspotConfig) => {
-    if (interactionLocked || showReward) {
+    if (storyEditorOn || interactionLocked || showReward) {
       return;
     }
 
@@ -193,6 +199,7 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
   };
 
   const hotspotsEnabled =
+    !storyEditorOn &&
     !interactionLocked &&
     !showReward &&
     sceneEffect !== 'box-open' &&
@@ -226,6 +233,16 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
               onAction={handleAction}
               onRewardContinue={handleRewardContinue}
             />
+            {storyEditorOn && (
+              <Suspense fallback={null}>
+                <StoryEditorOverlay
+                  projectId={projectId}
+                  storyId={storyId}
+                  sceneId={scene.id}
+                  illustrationRegion={regions.illustration}
+                />
+              </Suspense>
+            )}
             {transitioning && (
               <div className={styles.fadeOverlay} aria-hidden="true" />
             )}

@@ -1,4 +1,5 @@
 import uiLayoutSource from '../../../docs/UI_LAYOUT.md?raw';
+import { extractLayoutJson } from '@/game/layout/parseUiLayout';
 import type { SectorStatus } from '@/game/world/types';
 
 export type LayoutRect = {
@@ -38,17 +39,11 @@ export type WorldMapLayout = {
   sectors: SectorLayoutDef[];
 };
 
-function extractLayoutJson(source: string): WorldMapLayout {
-  const match = source.match(/```json\s*([\s\S]*?)\s*```/);
-
-  if (!match) {
-    throw new Error('UI_LAYOUT.md: JSON block not found');
-  }
-
-  return JSON.parse(match[1]) as WorldMapLayout;
+function extractWorldMapLayout(source: string): WorldMapLayout {
+  return extractLayoutJson<WorldMapLayout>(source, 'world_map');
 }
 
-const worldMapLayout = extractLayoutJson(uiLayoutSource);
+const worldMapLayout = extractWorldMapLayout(uiLayoutSource);
 
 export function getWorldMapLayout(): WorldMapLayout {
   return worldMapLayout;

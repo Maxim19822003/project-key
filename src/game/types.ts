@@ -28,11 +28,24 @@ export type GameSave = {
   storyCompleted: boolean;
 };
 
+export type ItemCategory =
+  | 'all'
+  | 'keys'
+  | 'artifacts'
+  | 'materials'
+  | 'records'
+  | 'other';
+
+export type ItemRarity = 'common' | 'uncommon' | 'rare' | 'legendary';
+
 export type InventoryItemDef = {
   id: string;
   name: string;
   description: string;
   emoji: string;
+  category: Exclude<ItemCategory, 'all'>;
+  rarity: ItemRarity;
+  usage: string;
   slotX: number;
   slotY: number;
   slotSize: number;

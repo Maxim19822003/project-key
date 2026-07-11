@@ -8,3 +8,4 @@ export { StoryPanel } from './StoryPanel';
 export { TopBar } from './TopBar';
 export { TypewriterText } from './TypewriterText';
 export { WorldMapView } from './WorldMap';
+export { CollectionView } from './Collection';

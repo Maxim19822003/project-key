@@ -1,0 +1,80 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  aspect-ratio: var(--card-aspect-ratio);
+  padding: var(--spacing-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: rgba(18, 18, 26, 0.85);
+  color: var(--color-text);
+  cursor: pointer;
+  overflow: hidden;
+  --card-locked-opacity: 0.6;
+  --card-selected-border: 2px;
+  --card-hover-opacity: 0.85;
+}
+
+.card:hover:not(:disabled) {
+  opacity: var(--card-hover-opacity);
+  border-color: var(--color-accent);
+}
+
+.card:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.selected {
+  border-width: var(--card-selected-border);
+  border-color: var(--color-accent);
+}
+
+.locked .icon,
+.locked .title,
+.locked .rarity {
+  opacity: 0.45;
+}
+
+.lockedOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 15, var(--card-locked-opacity));
+  pointer-events: none;
+}
+
+.icon {
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  line-height: 1;
+}
+
+.title {
+  font-size: var(--font-size-xs);
+  text-align: center;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rarity {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+}
+
+.count {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+}
+
+.empty {
+  color: var(--color-text-dim);
+  font-size: var(--font-size-sm);
+}

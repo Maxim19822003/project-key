@@ -1,0 +1,1 @@
+export { HotspotLayer } from './HotspotLayer';

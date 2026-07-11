@@ -1,9 +1,9 @@
 export { BottomBar } from './BottomBar';
-export { ChoiceButton } from './ChoiceButton';
-export { Dialog } from './Dialog';
+export { HotspotLayer } from './HotspotLayer';
+export { InteractiveScene } from './InteractiveScene';
 export { Loading } from './Loading';
 export { RewardModal } from './RewardModal';
-export { SceneImage } from './SceneImage';
 export { SceneTransition } from './SceneTransition';
+export { StoryPanel } from './StoryPanel';
 export { TopBar } from './TopBar';
 export { TypewriterText } from './TypewriterText';

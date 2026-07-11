@@ -1,4 +1,3 @@
-import { DEFAULT_STORY_PATH } from '@/app/config';
 import { useNavigate } from 'react-router-dom';
 import styles from './SplashScreen.module.css';
 
@@ -13,9 +12,9 @@ export function SplashScreen() {
         <button
           type="button"
           className={styles.startButton}
-          onClick={() => navigate(DEFAULT_STORY_PATH)}
+          onClick={() => navigate('/world')}
         >
-          Начать
+          Начать приключение
         </button>
       </div>
     </div>

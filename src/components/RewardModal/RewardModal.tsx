@@ -1,4 +1,4 @@
-import { getRewardDisplay } from '@/app/rewards';
+import { INVENTORY_ITEMS } from '@/game/inventory';
 import styles from './RewardModal.module.css';
 
 type RewardModalProps = {
@@ -12,18 +12,21 @@ export function RewardModal({ rewardId, visible, onContinue }: RewardModalProps)
     return null;
   }
 
-  const reward = getRewardDisplay(rewardId);
+  const item = INVENTORY_ITEMS.find((entry) => entry.id === rewardId);
+  const emoji = item?.emoji ?? '✨';
+  const label = item?.name ?? rewardId;
 
   return (
     <div className={styles.overlay} role="dialog" aria-modal="true">
       <div className={styles.modal}>
-        <p className={styles.caption}>Получена находка</p>
+        <p className={styles.caption}>Найдена находка</p>
         <div className={styles.reward}>
           <span className={styles.emoji} aria-hidden="true">
-            {reward.emoji}
+            {emoji}
           </span>
-          <span className={styles.label}>{reward.label}</span>
+          <span className={styles.label}>{label}</span>
         </div>
+        <p className={styles.note}>Добавлено в коллекцию</p>
         <button type="button" className={styles.button} onClick={onContinue}>
           Продолжить
         </button>

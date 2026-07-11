@@ -1,3 +1,5 @@
-.map {
-  min-height: 16rem;
+.body {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
 }

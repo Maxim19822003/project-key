@@ -1,3 +1,77 @@
-.grid {
-  min-height: 14rem;
+.body {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.scene {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.slots {
+  position: absolute;
+  inset: 0;
+}
+
+.slot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: rgba(10, 10, 15, 0.15);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.slot:hover {
+  border-color: var(--color-accent);
+  background: rgba(108, 92, 231, 0.15);
+}
+
+.found .emoji {
+  font-size: 1.6rem;
+  filter: none;
+}
+
+.locked .emoji {
+  font-size: 1.4rem;
+  color: var(--color-text-dim);
+  opacity: 0.45;
+}
+
+.detail {
+  min-height: 22%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: rgba(10, 10, 15, 0.95);
+  border-top: 1px solid var(--color-border);
+}
+
+.detailTitle {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+}
+
+.detailText {
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.emoji {
+  line-height: 1;
 }

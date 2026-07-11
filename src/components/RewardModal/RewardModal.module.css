@@ -48,6 +48,14 @@
   color: var(--color-text);
 }
 
+.note {
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
 .button {
   width: 100%;
   padding: var(--spacing-md) var(--spacing-lg);

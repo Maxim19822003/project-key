@@ -1,0 +1,71 @@
+import { useCallback, useSyncExternalStore } from 'react';
+import {
+  addFoundItem,
+  loadSave,
+  updateSave,
+  writeSave,
+} from '@/game/save';
+import type { GameSave } from '@/game/types';
+
+function subscribe(callback: () => void): () => void {
+  const handler = () => callback();
+  window.addEventListener('storage', handler);
+  window.addEventListener('key-save-updated', handler);
+  return () => {
+    window.removeEventListener('storage', handler);
+    window.removeEventListener('key-save-updated', handler);
+  };
+}
+
+function notifySaveUpdated(): void {
+  window.dispatchEvent(new Event('key-save-updated'));
+}
+
+function getSnapshot(): GameSave {
+  return loadSave();
+}
+
+export function useGameSave() {
+  const save = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+
+  const patchSave = useCallback((patch: Partial<GameSave>) => {
+    const next = updateSave(patch);
+    notifySaveUpdated();
+    return next;
+  }, []);
+
+  const collectItem = useCallback((itemId: string) => {
+    const next = addFoundItem(itemId);
+    notifySaveUpdated();
+    return next;
+  }, []);
+
+  const setScene = useCallback((sceneId: string) => {
+    return patchSave({ currentSceneId: sceneId, storyStarted: true });
+  }, [patchSave]);
+
+  const completeStory = useCallback(() => {
+    return patchSave({ storyCompleted: true, currentSceneId: null });
+  }, [patchSave]);
+
+  const resetProgress = useCallback(() => {
+    writeSave({
+      projectId: 'key',
+      storyId: 'neo_city',
+      currentSceneId: null,
+      foundItems: [],
+      storyStarted: false,
+      storyCompleted: false,
+    });
+    notifySaveUpdated();
+  }, []);
+
+  return {
+    save,
+    patchSave,
+    collectItem,
+    setScene,
+    completeStory,
+    resetProgress,
+  };
+}

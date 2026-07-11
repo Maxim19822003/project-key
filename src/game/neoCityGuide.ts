@@ -169,6 +169,14 @@ export function buildNeoCityStoryActions(
     ];
   }
 
+  const navigateHotspots = hotspots.filter(
+    (hotspot) => hotspot.action === 'navigate',
+  );
+
+  if (navigateHotspots.length > 0) {
+    return [];
+  }
+
   const sceneActions = NEO_CITY_SCENE_ACTIONS[sceneId];
   if (sceneActions?.length) {
     return sceneActions.map((action) => ({
@@ -179,28 +187,5 @@ export function buildNeoCityStoryActions(
     }));
   }
 
-  const actionable = hotspots.filter((hotspot) => hotspot.action === 'navigate');
-
-  if (actionable.length === 0) {
-    return [];
-  }
-
-  if (actionable.length === 1) {
-    const hotspot = actionable[0];
-    return [
-      {
-        id: hotspot.id,
-        label: hotspot.label,
-        type: 'hotspot',
-        hotspot,
-      },
-    ];
-  }
-
-  return actionable.slice(0, actionsLayout.maxActions).map((hotspot) => ({
-    id: hotspot.id,
-    label: hotspot.label,
-    type: 'hotspot' as const,
-    hotspot,
-  }));
+  return [];
 }

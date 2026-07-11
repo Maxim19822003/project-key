@@ -1,0 +1,115 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(4, 6, 12, 0);
+  animation: dimIn 0.28s ease forwards;
+  pointer-events: none;
+}
+
+.overlayFadeOut {
+  animation: dimOut 0.28s ease forwards;
+}
+
+.flash {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 28%;
+  height: 18%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(46, 204, 113, 0) 0%,
+    rgba(46, 204, 113, 0) 55%,
+    rgba(46, 204, 113, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.flashActive {
+  opacity: 1;
+  animation: worldFlash 1.6s ease-in-out infinite;
+}
+
+.banner {
+  position: absolute;
+  transform: translate(-50%, -120%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.bannerVisible {
+  opacity: 1;
+}
+
+.kicker {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(180, 255, 210, 0.95);
+  text-shadow: 0 0 12px rgba(46, 204, 113, 0.65);
+}
+
+.worldName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow:
+    0 0 16px rgba(46, 204, 113, 0.75),
+    0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+@keyframes dimIn {
+  from {
+    background: rgba(4, 6, 12, 0);
+  }
+
+  to {
+    background: rgba(4, 6, 12, 0.62);
+  }
+}
+
+@keyframes dimOut {
+  from {
+    background: rgba(4, 6, 12, 0.62);
+    opacity: 1;
+  }
+
+  to {
+    background: rgba(4, 6, 12, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes worldFlash {
+  0%,
+  100% {
+    background: radial-gradient(
+      circle,
+      rgba(46, 204, 113, 0.45) 0%,
+      rgba(46, 204, 113, 0.18) 42%,
+      rgba(46, 204, 113, 0) 72%
+    );
+    box-shadow: 0 0 24px rgba(46, 204, 113, 0.35);
+  }
+
+  50% {
+    background: radial-gradient(
+      circle,
+      rgba(80, 255, 160, 0.72) 0%,
+      rgba(46, 204, 113, 0.34) 45%,
+      rgba(46, 204, 113, 0) 78%
+    );
+    box-shadow:
+      0 0 36px rgba(46, 204, 113, 0.65),
+      0 0 64px rgba(46, 204, 113, 0.28);
+  }
+}

@@ -27,6 +27,9 @@ export type GameSave = {
   foundItems: string[];
   storyStarted: boolean;
   storyCompleted: boolean;
+  unlockedWorlds: string[];
+  completedWorlds: string[];
+  shownUnlockAnimations: string[];
 };
 
 export type ItemCategory =

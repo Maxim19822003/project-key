@@ -4,7 +4,9 @@ import {
   loadSave,
   updateSave,
   writeSave,
+  DEFAULT_SAVE,
 } from '@/game/save';
+import { applyStoryCompletion } from '@/game/world/worldProgress';
 import type { GameSave } from '@/game/types';
 
 function subscribe(callback: () => void): () => void {
@@ -49,18 +51,17 @@ export function useGameSave() {
   }, [patchSave]);
 
   const completeStory = useCallback(() => {
-    return patchSave({ storyCompleted: true, currentSceneId: null });
+    const save = loadSave();
+    const withWorldProgress = applyStoryCompletion(save.storyId, save);
+    return patchSave({
+      ...withWorldProgress,
+      storyCompleted: true,
+      currentSceneId: null,
+    });
   }, [patchSave]);
 
   const resetProgress = useCallback(() => {
-    writeSave({
-      projectId: 'key',
-      storyId: 'neo_city',
-      currentSceneId: null,
-      foundItems: [],
-      storyStarted: false,
-      storyCompleted: false,
-    });
+    writeSave({ ...DEFAULT_SAVE });
     notifySaveUpdated();
   }, []);
 

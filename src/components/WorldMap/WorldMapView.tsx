@@ -1,4 +1,6 @@
 import { SectorLayer } from '@/components/WorldMap/SectorLayer';
+import { WorldSectorLabels } from '@/components/WorldMap/WorldSectorLabels';
+import { WorldUnlockReveal } from '@/components/WorldMap/WorldUnlockReveal';
 import type { WorldHotspotView } from '@/game/world/types';
 import styles from './WorldMapView.module.css';
 
@@ -8,6 +10,8 @@ type WorldMapViewProps = {
   sectors: WorldHotspotView[];
   sectorsEnabled?: boolean;
   debug?: boolean;
+  revealSector?: WorldHotspotView | null;
+  onRevealComplete?: () => void;
   onSectorClick: (sector: WorldHotspotView) => void;
 };
 
@@ -28,6 +32,8 @@ export function WorldMapView({
   sectors,
   sectorsEnabled = true,
   debug = false,
+  revealSector = null,
+  onRevealComplete,
   onSectorClick,
 }: WorldMapViewProps) {
   return (
@@ -40,6 +46,10 @@ export function WorldMapView({
         debug={debug}
         onSectorClick={onSectorClick}
       />
+      {!debug && <WorldSectorLabels sectors={sectors} />}
+      {!debug && revealSector && onRevealComplete && (
+        <WorldUnlockReveal sector={revealSector} onComplete={onRevealComplete} />
+      )}
     </div>
   );
 }

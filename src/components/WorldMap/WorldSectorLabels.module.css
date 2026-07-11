@@ -1,0 +1,87 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.title {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+
+.icon {
+  font-size: 0.68rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.75));
+}
+
+.labelCompleted .title {
+  color: rgba(180, 230, 255, 0.95);
+}
+
+.labelCompleted .icon {
+  color: rgba(46, 204, 113, 0.95);
+}
+
+.labelAvailable .title {
+  color: rgba(220, 255, 240, 0.98);
+  animation: labelPulse 2.2s ease-in-out infinite;
+}
+
+.labelAvailable {
+  box-shadow:
+    0 0 8px rgba(46, 204, 113, 0.35),
+    0 0 16px rgba(46, 204, 113, 0.2);
+  animation: labelGlow 2.2s ease-in-out infinite;
+}
+
+.labelLocked .title {
+  color: rgba(170, 175, 195, 0.82);
+}
+
+.labelLocked .icon {
+  font-size: 0.58rem;
+  opacity: 0.9;
+}
+
+@keyframes labelPulse {
+  0%,
+  100% {
+    opacity: 0.82;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes labelGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 6px rgba(46, 204, 113, 0.25),
+      0 0 12px rgba(46, 204, 113, 0.12);
+  }
+
+  50% {
+    box-shadow:
+      0 0 12px rgba(46, 204, 113, 0.55),
+      0 0 22px rgba(46, 204, 113, 0.28);
+  }
+}

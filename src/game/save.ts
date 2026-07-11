@@ -1,4 +1,5 @@
 import type { GameSave } from '@/game/types';
+import { INITIAL_UNLOCKED_WORLDS } from '@/game/world/worldProgress';
 
 const STORAGE_KEY = 'key_game_save';
 
@@ -9,6 +10,9 @@ export const DEFAULT_SAVE: GameSave = {
   foundItems: [],
   storyStarted: false,
   storyCompleted: false,
+  unlockedWorlds: [...INITIAL_UNLOCKED_WORLDS],
+  completedWorlds: [],
+  shownUnlockAnimations: [],
 };
 
 let cachedRaw: string | null = null;

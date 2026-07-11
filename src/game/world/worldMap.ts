@@ -2,6 +2,7 @@ import type { GameSave } from '@/game/types';
 import { getWorldMapConfigFromLayout } from '@/game/world/config';
 import { getWorldSectorDefs } from '@/game/world/sectors';
 import { mapStatusToVisualState } from '@/game/world/sectorVisuals';
+import { resolveWorldSectorStatus } from '@/game/world/worldProgress';
 import {
   LOCKED_SECTOR_MESSAGE,
   type SectorClickResult,
@@ -34,15 +35,7 @@ export function resolveSectorStatus(
   sector: WorldSectorDef,
   save: GameSave,
 ): SectorStatus {
-  if (sector.storyId && save.storyId === sector.storyId && save.storyCompleted) {
-    return 'completed';
-  }
-
-  if (sector.defaultStatus === 'locked') {
-    return 'locked';
-  }
-
-  return 'open';
+  return resolveWorldSectorStatus(sector.id, save);
 }
 
 export function resolveSectorProgress(

@@ -43,3 +43,24 @@ export {
   resolveSectorStatus,
   toHotspotView,
 } from '@/game/world/worldMap';
+export {
+  applyStoryCompletion,
+  completeWorld,
+  getNextWorlds,
+  getPendingUnlockAnimation,
+  getWorldProgressSavePatch,
+  getWorldState,
+  INITIAL_UNLOCKED_WORLDS,
+  isCompleted,
+  isUnlocked,
+  markUnlockAnimationShown,
+  resolveWorldSectorStatus,
+  storyIdToWorldId,
+  unlockWorld,
+  WORLD_UNLOCK_TREE,
+} from '@/game/world/worldProgress';
+export type {
+  PendingUnlockAnimation,
+  WorldId,
+  WorldProgressState,
+} from '@/game/world/worldProgress';

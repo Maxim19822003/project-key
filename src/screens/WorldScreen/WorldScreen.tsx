@@ -8,7 +8,14 @@ const regions = getWorldMapRegions();
 const worldMapDebug = isWorldMapDebugEnabled();
 
 export function WorldScreen() {
-  const { config, sectors, toastMessage, handleSectorClick } = useWorldMap();
+  const {
+    config,
+    sectors,
+    toastMessage,
+    revealSector,
+    handleRevealComplete,
+    handleSectorClick,
+  } = useWorldMap();
 
   return (
     <div
@@ -26,6 +33,8 @@ export function WorldScreen() {
           imageAlt={config.imageAlt}
           sectors={sectors}
           debug={worldMapDebug}
+          revealSector={revealSector}
+          onRevealComplete={handleRevealComplete}
           onSectorClick={handleSectorClick}
         />
         {toastMessage && (

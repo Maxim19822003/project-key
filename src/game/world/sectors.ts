@@ -9,9 +9,13 @@ function toWorldSectorDef(
     title: sector.title,
     storyId: sector.storyId,
     defaultStatus: sector.status,
+    shape: sector.shape,
     center: sector.center,
-    radius: sector.radius,
-    animation: sector.status === 'open' ? 'pulse' : 'none',
+    boundingBox: sector.boundingBox,
+    safePadding: sector.safePadding,
+    labelPosition: sector.labelPosition,
+    iconPosition: sector.iconPosition,
+    effects: sector.effects,
   };
 }
 

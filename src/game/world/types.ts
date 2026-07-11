@@ -1,15 +1,69 @@
 export type SectorStatus = 'locked' | 'open' | 'completed';
 
-export type WorldAnimation = 'pulse' | 'none';
+export type SectorVisualState = 'locked' | 'available' | 'completed' | 'active';
+
+export type SectorCenter = {
+  x: number;
+  y: number;
+};
+
+export type SectorBoundingBox = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+};
+
+export type SectorEllipseShape = {
+  type: 'ellipse';
+  rx: number;
+  ry: number;
+};
+
+export type SectorPolygonShape = {
+  type: 'polygon';
+  points: SectorCenter[];
+};
+
+export type SectorCustomPathShape = {
+  type: 'customPath';
+  d: string;
+};
+
+export type SectorShape =
+  | SectorEllipseShape
+  | SectorPolygonShape
+  | SectorCustomPathShape;
+
+/**
+ * Слоты для будущих эффектов сектора.
+ * Сейчас не используются — только архитектура для финального арта.
+ */
+export type SectorEffectSlot = {
+  id: string;
+  enabled: boolean;
+} | null;
+
+export type SectorEffectSlots = {
+  animation: SectorEffectSlot;
+  glow: SectorEffectSlot;
+  particle: SectorEffectSlot;
+  sound: SectorEffectSlot;
+  music: SectorEffectSlot;
+};
 
 export type WorldSectorDef = {
   id: string;
   title: string;
   storyId: string | null;
   defaultStatus: SectorStatus;
-  center: { x: number; y: number };
-  radius: number;
-  animation?: WorldAnimation;
+  shape: SectorShape;
+  center: SectorCenter;
+  boundingBox: SectorBoundingBox;
+  safePadding: number;
+  labelPosition: SectorCenter;
+  iconPosition: SectorCenter;
+  effects: SectorEffectSlots;
 };
 
 export type WorldSector = WorldSectorDef & {
@@ -20,11 +74,16 @@ export type WorldSector = WorldSectorDef & {
 export type WorldHotspotView = {
   id: string;
   title: string;
-  center: { x: number; y: number };
-  radius: number;
+  shape: SectorShape;
+  center: SectorCenter;
+  boundingBox: SectorBoundingBox;
+  safePadding: number;
+  labelPosition: SectorCenter;
+  iconPosition: SectorCenter;
   status: SectorStatus;
-  animation: WorldAnimation;
+  visualState: SectorVisualState;
   storyId: string | null;
+  effects: SectorEffectSlots;
 };
 
 export type WorldMapConfig = {

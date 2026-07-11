@@ -1,70 +1,169 @@
-import type { CSSProperties } from 'react';
+import { useState } from 'react';
+import {
+  formatCoordinate,
+  getSectorShapeRenderData,
+} from '@/game/world/sectorGeometry';
+import { getSectorInteractiveStyle } from '@/game/world/sectorVisuals';
 import type { WorldHotspotView } from '@/game/world/types';
 import styles from './SectorLayer.module.css';
 
 type SectorLayerProps = {
   sectors: WorldHotspotView[];
   disabled?: boolean;
+  debug?: boolean;
   onSectorClick: (sector: WorldHotspotView) => void;
 };
 
-function toPercent(value: number): string {
-  return `${value}%`;
-}
+function renderHitShape(
+  sector: WorldHotspotView,
+  style: ReturnType<typeof getSectorInteractiveStyle>,
+  isActive: boolean,
+) {
+  const shape = getSectorShapeRenderData(sector.shape, sector.center);
+  const className = [
+    styles.hitShape,
+    isActive ? styles.hitShapeActive : '',
+    sector.status === 'locked' ? styles.hitShapeLocked : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-function getSectorStyle(sector: WorldHotspotView): CSSProperties {
-  return {
-    left: toPercent(sector.center.x),
-    top: toPercent(sector.center.y),
-    width: toPercent(sector.radius * 2),
-    height: toPercent(sector.radius * 2),
+  const shapeProps = {
+    className,
+    fill: style.fill,
+    stroke: style.stroke,
+    strokeWidth: style.strokeWidth,
+    opacity: style.opacity,
   };
-}
 
-function getStatusClass(status: WorldHotspotView['status']): string {
-  if (status === 'open') {
-    return styles.statusOpen;
+  if (shape.kind === 'ellipse') {
+    return (
+      <ellipse
+        {...shapeProps}
+        cx={shape.cx}
+        cy={shape.cy}
+        rx={shape.rx}
+        ry={shape.ry}
+      />
+    );
   }
 
-  if (status === 'completed') {
-    return styles.statusCompleted;
+  if (shape.kind === 'polygon') {
+    return <polygon {...shapeProps} points={shape.points} />;
   }
 
-  return styles.statusLocked;
+  return <path {...shapeProps} d={shape.d} />;
 }
 
 export function SectorLayer({
   sectors,
   disabled = false,
+  debug = false,
   onSectorClick,
 }: SectorLayerProps) {
+  const [activeSectorId, setActiveSectorId] = useState<string | null>(null);
+
   return (
     <div className={styles.layer}>
-      {sectors.map((sector) => (
-        <button
-          key={sector.id}
-          type="button"
-          className={[
-            styles.sector,
-            styles.shapeCircle,
-            getStatusClass(sector.status),
-            sector.animation === 'pulse' ? styles.pulse : '',
-            disabled ? styles.disabled : '',
-          ]
-            .filter(Boolean)
-            .join(' ')}
-          style={getSectorStyle(sector)}
-          aria-label={sector.title}
-          disabled={disabled}
-          onClick={() => onSectorClick(sector)}
-        >
-          {sector.status === 'locked' && (
-            <span className={styles.lockIcon} aria-hidden="true">
-              🔒
-            </span>
-          )}
-        </button>
-      ))}
+      <svg
+        className={styles.hitSvg}
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden={!debug}
+      >
+        {sectors.map((sector) => {
+          const isActive = activeSectorId === sector.id;
+          const style = getSectorInteractiveStyle(
+            sector.visualState,
+            debug,
+            isActive,
+          );
+
+          return (
+            <g
+              key={sector.id}
+              className={disabled ? styles.groupDisabled : styles.group}
+              onMouseEnter={() => setActiveSectorId(sector.id)}
+              onMouseLeave={() =>
+                setActiveSectorId((current) =>
+                  current === sector.id ? null : current,
+                )
+              }
+              onFocus={() => setActiveSectorId(sector.id)}
+              onBlur={() =>
+                setActiveSectorId((current) =>
+                  current === sector.id ? null : current,
+                )
+              }
+            >
+              <g
+                role="button"
+                tabIndex={disabled ? -1 : 0}
+                aria-label={sector.title}
+                className={styles.hitGroup}
+                onClick={() => {
+                  if (!disabled) {
+                    onSectorClick(sector);
+                  }
+                }}
+                onKeyDown={(event) => {
+                  if (disabled) {
+                    return;
+                  }
+
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onSectorClick(sector);
+                  }
+                }}
+              >
+                {renderHitShape(sector, style, isActive)}
+              </g>
+
+              {debug && (
+                <g className={styles.debugOverlay} pointerEvents="none">
+                  <rect
+                    className={styles.debugBounds}
+                    x={sector.boundingBox.x}
+                    y={sector.boundingBox.y}
+                    width={sector.boundingBox.w}
+                    height={sector.boundingBox.h}
+                  />
+                  <circle
+                    className={styles.debugCenter}
+                    cx={sector.center.x}
+                    cy={sector.center.y}
+                    r={0.8}
+                  />
+                  <text
+                    className={styles.debugLabel}
+                    x={sector.labelPosition.x}
+                    y={sector.labelPosition.y}
+                    textAnchor="middle"
+                  >
+                    {sector.title}
+                  </text>
+                  <text
+                    className={styles.debugCoords}
+                    x={sector.center.x}
+                    y={sector.center.y + 2.5}
+                    textAnchor="middle"
+                  >
+                    {formatCoordinate(sector.center)}
+                  </text>
+                  <text
+                    className={styles.debugShapeType}
+                    x={sector.boundingBox.x}
+                    y={sector.boundingBox.y - 1}
+                  >
+                    {sector.shape.type}
+                  </text>
+                </g>
+              )}
+            </g>
+          );
+        })}
+      </svg>
     </div>
   );
 }

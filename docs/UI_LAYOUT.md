@@ -25,22 +25,47 @@
 
 - `id` — идентификатор
 - `title` — название
+- `shape` — форма области: `ellipse` | `polygon` | `customPath`
 - `center` — центр (`x`, `y`)
-- `radius` — радиус (`r`)
-- `status` — `locked` | `open` | `completed`
+- `boundingBox` — ограничивающий прямоугольник (`x`, `y`, `w`, `h`)
+- `polygon` / `customPath` — точки или SVG-путь (для соответствующего `shape.type`)
+- `safePadding` — отступ безопасной зоны внутри контура
+- `labelPosition` — позиция подписи (`x`, `y`)
+- `iconPosition` — позиция иконки (`x`, `y`)
+- `status` — начальный статус: `locked` | `open` | `completed`
 - `storyId` — id истории или `null`
+- `effects` — слоты будущих эффектов (`animation`, `glow`, `particle`, `sound`, `music`)
+
+### Замена карты художником
+
+1. Заменить файл изображения по пути `map.imageSrc`.
+2. Обновить координаты секторов в JSON-блоке ниже.
+3. Пересобрать проект. Код React менять не нужно.
+
+Проверка разметки: `?worldMapDebug=1` в URL или `VITE_WORLD_MAP_DEBUG=true`.
+
+### Визуальные состояния сектора
+
+| Состояние | Когда применяется |
+|-----------|-------------------|
+| `locked` | Сектор закрыт |
+| `available` | Сектор открыт (`open` в логике сохранения) |
+| `completed` | История сектора пройдена |
+| `active` | Hover / focus в DEBUG-режиме |
+
+В обычной игре области клика невидимы. Контуры и подписи видны только в DEBUG.
 
 ### Миры
 
-| id | title | center (x, y) | radius | status | storyId |
-|----|-------|---------------|--------|--------|---------|
-| neo_city | Neo City | 50, 52 | 11 | open | neo_city |
-| forest | Forest | 22, 35 | 9 | locked | null |
-| ice | Ice | 78, 35 | 9 | locked | null |
-| desert | Desert | 50, 18 | 9 | locked | null |
-| dark_zone | Dark Zone | 78, 72 | 8 | locked | null |
-| metro | Metro | 22, 72 | 8 | locked | null |
-| ruins | Ruins | 50, 88 | 7 | locked | null |
+| id | title | shape | center | boundingBox | safePadding | labelPosition | iconPosition |
+|----|-------|-------|--------|-------------|-------------|---------------|--------------|
+| neo_city | Neo City | ellipse (14×10) | 50, 52 | 36, 42, 28, 20 | 2 | 50, 66 | 50, 52 |
+| forest | Forest | polygon (5 точек) | 22, 35 | 12, 26, 20, 20 | 1.5 | 22, 50 | 22, 35 |
+| ice | Ice | polygon (6 точек) | 78, 35 | 66, 28, 22, 20 | 1.5 | 78, 52 | 78, 35 |
+| desert | Desert | ellipse (18×7) | 50, 18 | 32, 11, 36, 14 | 2 | 50, 28 | 50, 18 |
+| dark_zone | Dark Zone | customPath | 78, 72 | 64, 62, 28, 26 | 1.5 | 78, 92 | 78, 72 |
+| metro | Metro | polygon (5 точек) | 22, 72 | 10, 62, 24, 24 | 1.5 | 22, 90 | 22, 72 |
+| ruins | Ruins | ellipse (12×5) | 50, 88 | 38, 83, 24, 10 | 2 | 50, 96 | 50, 88 |
 
 ### Машиночитаемые данные
 
@@ -58,14 +83,163 @@
     "imageSrc": "/projects/key/assets/world_map.webp",
     "imageAlt": "Карта мира"
   },
+  "debug": {
+    "enabled": false,
+    "note": "Контуры секторов: ?worldMapDebug=1 в URL или VITE_WORLD_MAP_DEBUG=true"
+  },
+  "stateVisuals": {
+    "locked": {
+      "fill": "rgba(120, 120, 140, 0.22)",
+      "stroke": "rgba(160, 160, 180, 0.85)",
+      "strokeWidth": 0.4,
+      "opacity": 0.75
+    },
+    "available": {
+      "fill": "rgba(46, 204, 113, 0.22)",
+      "stroke": "rgba(46, 204, 113, 0.9)",
+      "strokeWidth": 0.5,
+      "opacity": 0.85
+    },
+    "completed": {
+      "fill": "rgba(155, 89, 255, 0.22)",
+      "stroke": "rgba(155, 89, 255, 0.9)",
+      "strokeWidth": 0.5,
+      "opacity": 0.9
+    },
+    "active": {
+      "fill": "rgba(255, 220, 120, 0.28)",
+      "stroke": "rgba(255, 220, 120, 1)",
+      "strokeWidth": 0.6,
+      "opacity": 1
+    }
+  },
+  "effectSlots": {
+    "note": "Архитектура для будущих эффектов сектора. Сейчас все слоты null.",
+    "fields": ["animation", "glow", "particle", "sound", "music"]
+  },
   "sectors": [
-    { "id": "neo_city", "title": "Neo City", "center": { "x": 50, "y": 52 }, "radius": 11, "status": "open", "storyId": "neo_city" },
-    { "id": "forest", "title": "Forest", "center": { "x": 22, "y": 35 }, "radius": 9, "status": "locked", "storyId": null },
-    { "id": "ice", "title": "Ice", "center": { "x": 78, "y": 35 }, "radius": 9, "status": "locked", "storyId": null },
-    { "id": "desert", "title": "Desert", "center": { "x": 50, "y": 18 }, "radius": 9, "status": "locked", "storyId": null },
-    { "id": "dark_zone", "title": "Dark Zone", "center": { "x": 78, "y": 72 }, "radius": 8, "status": "locked", "storyId": null },
-    { "id": "metro", "title": "Metro", "center": { "x": 22, "y": 72 }, "radius": 8, "status": "locked", "storyId": null },
-    { "id": "ruins", "title": "Ruins", "center": { "x": 50, "y": 88 }, "radius": 7, "status": "locked", "storyId": null }
+    {
+      "id": "neo_city",
+      "title": "Neo City",
+      "shape": { "type": "ellipse", "rx": 14, "ry": 10 },
+      "center": { "x": 50, "y": 52 },
+      "boundingBox": { "x": 36, "y": 42, "w": 28, "h": 20 },
+      "safePadding": 2,
+      "labelPosition": { "x": 50, "y": 66 },
+      "iconPosition": { "x": 50, "y": 52 },
+      "status": "open",
+      "storyId": "neo_city",
+      "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
+    },
+    {
+      "id": "forest",
+      "title": "Forest",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          { "x": 14, "y": 28 },
+          { "x": 30, "y": 26 },
+          { "x": 32, "y": 38 },
+          { "x": 24, "y": 46 },
+          { "x": 12, "y": 40 }
+        ]
+      },
+      "center": { "x": 22, "y": 35 },
+      "boundingBox": { "x": 12, "y": 26, "w": 20, "h": 20 },
+      "safePadding": 1.5,
+      "labelPosition": { "x": 22, "y": 50 },
+      "iconPosition": { "x": 22, "y": 35 },
+      "status": "locked",
+      "storyId": null,
+      "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
+    },
+    {
+      "id": "ice",
+      "title": "Ice",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          { "x": 70, "y": 28 },
+          { "x": 86, "y": 30 },
+          { "x": 88, "y": 42 },
+          { "x": 80, "y": 48 },
+          { "x": 68, "y": 44 },
+          { "x": 66, "y": 32 }
+        ]
+      },
+      "center": { "x": 78, "y": 35 },
+      "boundingBox": { "x": 66, "y": 28, "w": 22, "h": 20 },
+      "safePadding": 1.5,
+      "labelPosition": { "x": 78, "y": 52 },
+      "iconPosition": { "x": 78, "y": 35 },
+      "status": "locked",
+      "storyId": null,
+      "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
+    },
+    {
+      "id": "desert",
+      "title": "Desert",
+      "shape": { "type": "ellipse", "rx": 18, "ry": 7 },
+      "center": { "x": 50, "y": 18 },
+      "boundingBox": { "x": 32, "y": 11, "w": 36, "h": 14 },
+      "safePadding": 2,
+      "labelPosition": { "x": 50, "y": 28 },
+      "iconPosition": { "x": 50, "y": 18 },
+      "status": "locked",
+      "storyId": null,
+      "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
+    },
+    {
+      "id": "dark_zone",
+      "title": "Dark Zone",
+      "shape": {
+        "type": "customPath",
+        "d": "M 68 64 L 88 62 L 92 74 L 86 86 L 70 88 L 64 76 Z"
+      },
+      "center": { "x": 78, "y": 72 },
+      "boundingBox": { "x": 64, "y": 62, "w": 28, "h": 26 },
+      "safePadding": 1.5,
+      "labelPosition": { "x": 78, "y": 92 },
+      "iconPosition": { "x": 78, "y": 72 },
+      "status": "locked",
+      "storyId": null,
+      "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
+    },
+    {
+      "id": "metro",
+      "title": "Metro",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          { "x": 12, "y": 64 },
+          { "x": 32, "y": 62 },
+          { "x": 34, "y": 78 },
+          { "x": 30, "y": 86 },
+          { "x": 10, "y": 84 }
+        ]
+      },
+      "center": { "x": 22, "y": 72 },
+      "boundingBox": { "x": 10, "y": 62, "w": 24, "h": 24 },
+      "safePadding": 1.5,
+      "labelPosition": { "x": 22, "y": 90 },
+      "iconPosition": { "x": 22, "y": 72 },
+      "status": "locked",
+      "storyId": null,
+      "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
+    },
+    {
+      "id": "ruins",
+      "title": "Ruins",
+      "shape": { "type": "ellipse", "rx": 12, "ry": 5 },
+      "center": { "x": 50, "y": 88 },
+      "boundingBox": { "x": 38, "y": 83, "w": 24, "h": 10 },
+      "safePadding": 2,
+      "labelPosition": { "x": 50, "y": 96 },
+      "iconPosition": { "x": 50, "y": 88 },
+      "status": "locked",
+      "storyId": null,
+      "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
+    }
   ]
 }
 ```

@@ -1,6 +1,7 @@
 import type { GameSave } from '@/game/types';
 import { getWorldMapConfigFromLayout } from '@/game/world/config';
 import { getWorldSectorDefs } from '@/game/world/sectors';
+import { mapStatusToVisualState } from '@/game/world/sectorVisuals';
 import {
   LOCKED_SECTOR_MESSAGE,
   type SectorClickResult,
@@ -74,11 +75,16 @@ export function toHotspotView(sector: WorldSector): WorldHotspotView {
   return {
     id: sector.id,
     title: sector.title,
+    shape: sector.shape,
     center: sector.center,
-    radius: sector.radius,
+    boundingBox: sector.boundingBox,
+    safePadding: sector.safePadding,
+    labelPosition: sector.labelPosition,
+    iconPosition: sector.iconPosition,
     status: sector.status,
-    animation: sector.animation ?? 'none',
+    visualState: mapStatusToVisualState(sector.status),
     storyId: sector.storyId,
+    effects: sector.effects,
   };
 }
 

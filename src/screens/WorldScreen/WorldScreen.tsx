@@ -1,10 +1,11 @@
 import { BottomBar, StoryPanel, TopBar, WorldMapView } from '@/components';
-import { getWorldMapRegions } from '@/game/world';
+import { getWorldMapRegions, isWorldMapDebugEnabled } from '@/game/world';
 import { useWorldMap } from '@/hooks/useWorldMap';
 import '@/styles/screen.css';
 import styles from './WorldScreen.module.css';
 
 const regions = getWorldMapRegions();
+const worldMapDebug = isWorldMapDebugEnabled();
 
 export function WorldScreen() {
   const {
@@ -32,6 +33,7 @@ export function WorldScreen() {
           imageAlt={config.imageAlt}
           sectors={sectors}
           sectorsEnabled={textComplete}
+          debug={worldMapDebug}
           onSectorClick={handleSectorClick}
         />
         <StoryPanel

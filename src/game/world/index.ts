@@ -1,17 +1,22 @@
 export type {
   SectorClickResult,
   SectorStatus,
-  WorldAnimation,
+  SectorVisualState,
   WorldHotspotView,
   WorldMapConfig,
   WorldSector,
   WorldSectorDef,
+  SectorShape,
+  SectorEffectSlots,
+  SectorBoundingBox,
+  SectorCenter,
 } from '@/game/world/types';
 
 export type {
   LayoutRect,
-  SectorCenter,
   SectorLayoutDef,
+  SectorStateVisualDef,
+  SectorStateVisuals,
   WorldMapLayout,
 } from '@/game/world/uiLayout';
 
@@ -23,6 +28,9 @@ export {
   getWorldMapMeta,
   getWorldMapRegions,
   getWorldMapSectorDefs,
+  getWorldMapStateVisuals,
+  getWorldMapDebugConfig,
+  isWorldMapDebugEnabled,
 } from '@/game/world/uiLayout';
 export {
   buildWorldSector,

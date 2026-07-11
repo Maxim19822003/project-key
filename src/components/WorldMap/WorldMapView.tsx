@@ -7,14 +7,27 @@ type WorldMapViewProps = {
   imageAlt: string;
   sectors: WorldHotspotView[];
   sectorsEnabled?: boolean;
+  debug?: boolean;
   onSectorClick: (sector: WorldHotspotView) => void;
 };
 
+/**
+ * Карта мира: иллюстрация + невидимые области клика по данным UI_LAYOUT.md.
+ *
+ * Как заменить карту без изменения кода:
+ * 1. Положите новое изображение в public/projects/key/assets/ (или другой путь).
+ * 2. В docs/UI_LAYOUT.md обновите map.imageSrc и координаты секторов
+ *    (shape, center, boundingBox, labelPosition, iconPosition).
+ * 3. Пересоберите проект. React-компоненты и игровая логика менять не нужно.
+ *
+ * Проверка разметки: ?worldMapDebug=1 в URL или VITE_WORLD_MAP_DEBUG=true.
+ */
 export function WorldMapView({
   imageSrc,
   imageAlt,
   sectors,
   sectorsEnabled = true,
+  debug = false,
   onSectorClick,
 }: WorldMapViewProps) {
   return (
@@ -24,6 +37,7 @@ export function WorldMapView({
       <SectorLayer
         sectors={sectors}
         disabled={!sectorsEnabled}
+        debug={debug}
         onSectorClick={onSectorClick}
       />
     </div>

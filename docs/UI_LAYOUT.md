@@ -63,13 +63,13 @@
 
 | id | title | shape | center | boundingBox | safePadding | labelPosition | iconPosition |
 |----|-------|-------|--------|-------------|-------------|---------------|--------------|
-| neo_city | Neo City | ellipse (14×10) | 50, 52 | 36, 42, 28, 20 | 2 | 50, 66 | 50, 52 |
-| forest | Forest | polygon (5 точек) | 22, 35 | 12, 26, 20, 20 | 1.5 | 22, 50 | 22, 35 |
-| ice | Ice | polygon (6 точек) | 78, 35 | 66, 28, 22, 20 | 1.5 | 78, 52 | 78, 35 |
-| desert | Desert | ellipse (18×7) | 50, 18 | 32, 11, 36, 14 | 2 | 50, 28 | 50, 18 |
-| dark_zone | Dark Zone | customPath | 78, 72 | 64, 62, 28, 26 | 1.5 | 78, 92 | 78, 72 |
-| metro | Metro | polygon (5 точек) | 22, 72 | 10, 62, 24, 24 | 1.5 | 22, 90 | 22, 72 |
-| ruins | Ruins | ellipse (12×5) | 50, 88 | 38, 83, 24, 10 | 2 | 50, 96 | 50, 88 |
+| neo_city | Neo City | ellipse (10×9) | 50, 49 | 40, 40, 20, 18 | 2 | 50, 60 | 50, 49 |
+| forest | Forest | polygon (5 точек) | 20, 21 | 10, 12, 20, 18 | 1.5 | 20, 33 | 20, 21 |
+| ice | Ice | polygon (6 точек) | 50, 12 | 36, 5, 28, 15 | 1.5 | 50, 23 | 50, 12 |
+| desert | Desert | ellipse (18×9) | 50, 84 | 32, 75, 36, 18 | 2 | 50, 94 | 50, 84 |
+| dark_zone | Dark Zone | customPath | 79, 19 | 66, 10, 26, 18 | 1.5 | 79, 31 | 79, 19 |
+| metro | Metro | polygon (5 точек) | 81, 55 | 70, 46, 22, 20 | 1.5 | 81, 68 | 81, 55 |
+| ruins | Ruins | polygon (5 точек) | 19, 54 | 10, 44, 18, 20 | 2 | 19, 67 | 19, 54 |
 
 ### Машиночитаемые данные
 
@@ -125,12 +125,12 @@
     {
       "id": "neo_city",
       "title": "Neo City",
-      "shape": { "type": "ellipse", "rx": 14, "ry": 10 },
-      "center": { "x": 50, "y": 52 },
-      "boundingBox": { "x": 36, "y": 42, "w": 28, "h": 20 },
+      "shape": { "type": "ellipse", "rx": 10, "ry": 9 },
+      "center": { "x": 50, "y": 49 },
+      "boundingBox": { "x": 40, "y": 40, "w": 20, "h": 18 },
       "safePadding": 2,
-      "labelPosition": { "x": 50, "y": 66 },
-      "iconPosition": { "x": 50, "y": 52 },
+      "labelPosition": { "x": 50, "y": 60 },
+      "iconPosition": { "x": 50, "y": 49 },
       "status": "open",
       "storyId": "neo_city",
       "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
@@ -141,18 +141,18 @@
       "shape": {
         "type": "polygon",
         "points": [
-          { "x": 14, "y": 28 },
-          { "x": 30, "y": 26 },
-          { "x": 32, "y": 38 },
-          { "x": 24, "y": 46 },
-          { "x": 12, "y": 40 }
+          { "x": 10, "y": 14 },
+          { "x": 26, "y": 12 },
+          { "x": 30, "y": 22 },
+          { "x": 24, "y": 30 },
+          { "x": 12, "y": 28 }
         ]
       },
-      "center": { "x": 22, "y": 35 },
-      "boundingBox": { "x": 12, "y": 26, "w": 20, "h": 20 },
+      "center": { "x": 20, "y": 21 },
+      "boundingBox": { "x": 10, "y": 12, "w": 20, "h": 18 },
       "safePadding": 1.5,
-      "labelPosition": { "x": 22, "y": 50 },
-      "iconPosition": { "x": 22, "y": 35 },
+      "labelPosition": { "x": 20, "y": 33 },
+      "iconPosition": { "x": 20, "y": 21 },
       "status": "locked",
       "storyId": null,
       "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
@@ -163,19 +163,19 @@
       "shape": {
         "type": "polygon",
         "points": [
-          { "x": 70, "y": 28 },
-          { "x": 86, "y": 30 },
-          { "x": 88, "y": 42 },
-          { "x": 80, "y": 48 },
-          { "x": 68, "y": 44 },
-          { "x": 66, "y": 32 }
+          { "x": 38, "y": 5 },
+          { "x": 62, "y": 5 },
+          { "x": 64, "y": 14 },
+          { "x": 56, "y": 20 },
+          { "x": 44, "y": 20 },
+          { "x": 36, "y": 14 }
         ]
       },
-      "center": { "x": 78, "y": 35 },
-      "boundingBox": { "x": 66, "y": 28, "w": 22, "h": 20 },
+      "center": { "x": 50, "y": 12 },
+      "boundingBox": { "x": 36, "y": 5, "w": 28, "h": 15 },
       "safePadding": 1.5,
-      "labelPosition": { "x": 78, "y": 52 },
-      "iconPosition": { "x": 78, "y": 35 },
+      "labelPosition": { "x": 50, "y": 23 },
+      "iconPosition": { "x": 50, "y": 12 },
       "status": "locked",
       "storyId": null,
       "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
@@ -183,12 +183,12 @@
     {
       "id": "desert",
       "title": "Desert",
-      "shape": { "type": "ellipse", "rx": 18, "ry": 7 },
-      "center": { "x": 50, "y": 18 },
-      "boundingBox": { "x": 32, "y": 11, "w": 36, "h": 14 },
+      "shape": { "type": "ellipse", "rx": 18, "ry": 9 },
+      "center": { "x": 50, "y": 84 },
+      "boundingBox": { "x": 32, "y": 75, "w": 36, "h": 18 },
       "safePadding": 2,
-      "labelPosition": { "x": 50, "y": 28 },
-      "iconPosition": { "x": 50, "y": 18 },
+      "labelPosition": { "x": 50, "y": 94 },
+      "iconPosition": { "x": 50, "y": 84 },
       "status": "locked",
       "storyId": null,
       "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
@@ -198,13 +198,13 @@
       "title": "Dark Zone",
       "shape": {
         "type": "customPath",
-        "d": "M 68 64 L 88 62 L 92 74 L 86 86 L 70 88 L 64 76 Z"
+        "d": "M 70 10 L 90 12 L 92 24 L 84 28 L 70 26 L 66 16 Z"
       },
-      "center": { "x": 78, "y": 72 },
-      "boundingBox": { "x": 64, "y": 62, "w": 28, "h": 26 },
+      "center": { "x": 79, "y": 19 },
+      "boundingBox": { "x": 66, "y": 10, "w": 26, "h": 18 },
       "safePadding": 1.5,
-      "labelPosition": { "x": 78, "y": 92 },
-      "iconPosition": { "x": 78, "y": 72 },
+      "labelPosition": { "x": 79, "y": 31 },
+      "iconPosition": { "x": 79, "y": 19 },
       "status": "locked",
       "storyId": null,
       "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
@@ -215,18 +215,18 @@
       "shape": {
         "type": "polygon",
         "points": [
-          { "x": 12, "y": 64 },
-          { "x": 32, "y": 62 },
-          { "x": 34, "y": 78 },
-          { "x": 30, "y": 86 },
-          { "x": 10, "y": 84 }
+          { "x": 70, "y": 46 },
+          { "x": 90, "y": 48 },
+          { "x": 92, "y": 60 },
+          { "x": 84, "y": 66 },
+          { "x": 70, "y": 63 }
         ]
       },
-      "center": { "x": 22, "y": 72 },
-      "boundingBox": { "x": 10, "y": 62, "w": 24, "h": 24 },
+      "center": { "x": 81, "y": 55 },
+      "boundingBox": { "x": 70, "y": 46, "w": 22, "h": 20 },
       "safePadding": 1.5,
-      "labelPosition": { "x": 22, "y": 90 },
-      "iconPosition": { "x": 22, "y": 72 },
+      "labelPosition": { "x": 81, "y": 68 },
+      "iconPosition": { "x": 81, "y": 55 },
       "status": "locked",
       "storyId": null,
       "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }
@@ -234,12 +234,21 @@
     {
       "id": "ruins",
       "title": "Ruins",
-      "shape": { "type": "ellipse", "rx": 12, "ry": 5 },
-      "center": { "x": 50, "y": 88 },
-      "boundingBox": { "x": 38, "y": 83, "w": 24, "h": 10 },
+      "shape": {
+        "type": "polygon",
+        "points": [
+          { "x": 10, "y": 46 },
+          { "x": 26, "y": 44 },
+          { "x": 28, "y": 56 },
+          { "x": 22, "y": 64 },
+          { "x": 10, "y": 62 }
+        ]
+      },
+      "center": { "x": 19, "y": 54 },
+      "boundingBox": { "x": 10, "y": 44, "w": 18, "h": 20 },
       "safePadding": 2,
-      "labelPosition": { "x": 50, "y": 96 },
-      "iconPosition": { "x": 50, "y": 88 },
+      "labelPosition": { "x": 19, "y": 67 },
+      "iconPosition": { "x": 19, "y": 54 },
       "status": "locked",
       "storyId": null,
       "effects": { "animation": null, "glow": null, "particle": null, "sound": null, "music": null }

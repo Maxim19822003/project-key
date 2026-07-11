@@ -61,7 +61,20 @@ function serveStaticFile(
 
 function createStaticMiddleware(rootDir: string) {
   return (request: IncomingMessage, response: ServerResponse, next: () => void) => {
-    const url = request.url?.split('?')[0] ?? '';
+    const rawUrl = request.url ?? '';
+    const url = rawUrl.split('?')[0];
+
+    // Scene layout JSON is bundled by Vite (import.meta.glob), not served as static.
+    if (url.endsWith('.layout.json')) {
+      next();
+      return;
+    }
+
+    // Vite module transforms use query params (?import, ?raw, etc.).
+    if (rawUrl.includes('?')) {
+      next();
+      return;
+    }
 
     if (!STATIC_PREFIXES.some((prefix) => url.startsWith(prefix))) {
       next();

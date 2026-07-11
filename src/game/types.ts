@@ -2,7 +2,7 @@ export type HotspotShape = 'rect' | 'circle' | 'ellipse';
 
 export type HotspotAction = 'navigate' | 'dialog' | 'locked';
 
-export type HotspotAnimation = 'sway';
+export type HotspotAnimation = 'pulse' | 'glow' | 'float' | 'sway' | 'blink' | 'fade';
 
 export type HotspotConfig = {
   id: string;
@@ -13,7 +13,8 @@ export type HotspotConfig = {
   label: string;
   shape?: HotspotShape;
   action: HotspotAction;
-  animation?: HotspotAnimation;
+  primary?: boolean;
+  animation?: HotspotAnimation | HotspotAnimation[];
   nextScene?: string;
   dialog?: string;
   lockedMessage?: string;

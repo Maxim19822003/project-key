@@ -28,6 +28,10 @@
   opacity: 1;
 }
 
+.hotspot.primary::after {
+  opacity: 1;
+}
+
 .hotspot.disabled {
   pointer-events: none;
 }
@@ -94,19 +98,38 @@
   );
 }
 
+.primary.locked::after {
+  opacity: 0;
+}
+
+.glow::after {
+  box-shadow:
+    0 0 18px rgba(108, 92, 231, 0.55),
+    0 0 36px rgba(108, 92, 231, 0.28);
+}
+
+.pulse::after {
+  animation: hotspotPulse 2.4s ease-in-out infinite;
+}
+
+.blink::after {
+  animation: hotspotBlink 1.6s step-end infinite;
+}
+
+.fade {
+  animation: hotspotFade 2.8s ease-in-out infinite;
+}
+
 .sway {
   animation: hotspotSway 3s ease-in-out infinite;
 }
 
-@keyframes hotspotSway {
-  0%,
-  100% {
-    transform: rotate(-1deg);
-  }
+.float {
+  animation: hotspotFloat 3.5s ease-in-out infinite;
+}
 
-  50% {
-    transform: rotate(1deg);
-  }
+.swayFloat {
+  animation: hotspotSwayFloat 3.5s ease-in-out infinite;
 }
 
 .shapeCircle.sway,
@@ -114,13 +137,114 @@
   animation: hotspotSwayCentered 3s ease-in-out infinite;
 }
 
-@keyframes hotspotSwayCentered {
+.shapeCircle.float,
+.shapeEllipse.float {
+  animation: hotspotFloatCentered 3.5s ease-in-out infinite;
+}
+
+.shapeCircle.swayFloat,
+.shapeEllipse.swayFloat {
+  animation: hotspotSwayFloatCentered 3.5s ease-in-out infinite;
+}
+
+@keyframes hotspotPulse {
   0%,
   100% {
-    transform: translate(-50%, -50%) rotate(-1deg);
+    transform: scale(1);
+    opacity: 0.85;
   }
 
   50% {
-    transform: translate(-50%, -50%) rotate(1deg);
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes hotspotBlink {
+  0%,
+  44% {
+    opacity: 1;
+  }
+
+  50%,
+  94% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes hotspotFade {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes hotspotSway {
+  0%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+
+  50% {
+    transform: rotate(1.2deg);
+  }
+}
+
+@keyframes hotspotFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes hotspotSwayFloat {
+  0%,
+  100% {
+    transform: rotate(-1.2deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(1.2deg) translateY(-5px);
+  }
+}
+
+@keyframes hotspotSwayCentered {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(-1.2deg);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(1.2deg);
+  }
+}
+
+@keyframes hotspotFloatCentered {
+  0%,
+  100% {
+    transform: translate(-50%, calc(-50% + 0px));
+  }
+
+  50% {
+    transform: translate(-50%, calc(-50% - 5px));
+  }
+}
+
+@keyframes hotspotSwayFloatCentered {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(-1.2deg);
+  }
+
+  50% {
+    transform: translate(-50%, calc(-50% - 5px)) rotate(1.2deg);
   }
 }

@@ -4,8 +4,9 @@ import { StoryIllustration } from '@/components/Story/StoryIllustration';
 import { StoryRewardPopup } from '@/components/Story/StoryRewardPopup';
 import { StorySceneTitle } from '@/components/Story/StorySceneTitle';
 import { StoryTextPanel } from '@/components/Story/StoryTextPanel';
+import type { SceneEffect } from '@/components/InteractiveScene';
+import { buildNeoCityStoryActions } from '@/game/neoCityGuide';
 import {
-  buildStoryActions,
   getStoryActionsLayout,
   getStoryHeaderLayout,
   getStoryRegions,
@@ -23,6 +24,7 @@ const actionsLayout = getStoryActionsLayout();
 const rewardPopupLayout = getStoryRewardPopupLayout();
 
 type StoryViewProps = {
+  sceneId?: string;
   sceneTitle?: string;
   sceneSubtitle?: string;
   panelText: string;
@@ -31,6 +33,7 @@ type StoryViewProps = {
   hotspots: HotspotConfig[];
   hotspotsEnabled: boolean;
   dimmed: boolean;
+  sceneEffect?: SceneEffect;
   textComplete: boolean;
   isEnding: boolean;
   showReward: boolean;
@@ -42,6 +45,7 @@ type StoryViewProps = {
 };
 
 export function StoryView({
+  sceneId,
   sceneTitle,
   sceneSubtitle,
   panelText,
@@ -50,6 +54,7 @@ export function StoryView({
   hotspots,
   hotspotsEnabled,
   dimmed,
+  sceneEffect = 'none',
   textComplete,
   isEnding,
   showReward,
@@ -60,8 +65,15 @@ export function StoryView({
   onRewardContinue,
 }: StoryViewProps) {
   const actions = useMemo(
-    () => buildStoryActions(hotspots, textComplete, isEnding, actionsLayout),
-    [hotspots, textComplete, isEnding],
+    () =>
+      buildNeoCityStoryActions(
+        sceneId ?? '',
+        hotspots,
+        textComplete,
+        isEnding,
+        actionsLayout,
+      ),
+    [sceneId, hotspots, textComplete, isEnding],
   );
 
   return (
@@ -73,6 +85,7 @@ export function StoryView({
         hotspots={hotspots}
         hotspotsEnabled={hotspotsEnabled}
         dimmed={dimmed}
+        sceneEffect={sceneEffect}
         onHotspotClick={onHotspotClick}
       />
       <StorySceneTitle

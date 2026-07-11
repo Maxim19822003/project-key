@@ -1,1 +1,1 @@
-export { InteractiveScene } from './InteractiveScene';
+export { InteractiveScene, type SceneEffect } from './InteractiveScene';

@@ -1,7 +1,12 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import type { SceneEffect } from '@/components/InteractiveScene';
 import { Loading, SceneTransition, StoryView, TopBar } from '@/components';
 import { getHotspotsForScene } from '@/game/hotspots';
+import {
+  NEO_CITY_AUTO_NAVIGATE,
+  NEO_CITY_SILENT_REWARDS,
+} from '@/game/neoCityGuide';
 import { getStoryRegions } from '@/game/storyLayout';
 import type { StoryActionItem } from '@/game/storyLayout';
 import type { HotspotConfig } from '@/game/types';
@@ -11,6 +16,10 @@ import { useStoryPlay } from '@/hooks/useStoryPlay';
 import styles from './StoryScreen.module.css';
 
 const regions = getStoryRegions();
+const BOX_OPEN_DURATION_MS = 700;
+const AUTO_NAVIGATE_DELAY_MS = 700;
+const POWER_ON_DURATION_MS = 1200;
+const SCENES_WITH_EARLY_HOTSPOTS = new Set(['scene_001']);
 
 export function StoryScreen() {
   const { projectId, storyId } = useParams<{
@@ -53,6 +62,14 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
   const [panelText, setPanelText] = useState('');
   const [showReward, setShowReward] = useState(false);
   const [pendingReward, setPendingReward] = useState<string | null>(null);
+  const [sceneEffect, setSceneEffect] = useState<SceneEffect>('none');
+  const [interactionLocked, setInteractionLocked] = useState(false);
+  const autoNavigateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+  const sceneEffectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
 
   const hotspots = useMemo(
     () => (scene ? getHotspotsForScene(scene.id) : []),
@@ -61,26 +78,72 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
 
   const isEnding = Boolean(scene && !scene.reward && hotspots.length === 0);
   const rewardId = scene?.reward;
+  const earlyHotspots = scene
+    ? SCENES_WITH_EARLY_HOTSPOTS.has(scene.id)
+    : false;
+
+  const clearTimers = useCallback(() => {
+    if (autoNavigateTimerRef.current) {
+      clearTimeout(autoNavigateTimerRef.current);
+      autoNavigateTimerRef.current = null;
+    }
+
+    if (sceneEffectTimerRef.current) {
+      clearTimeout(sceneEffectTimerRef.current);
+      sceneEffectTimerRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
+    clearTimers();
     setTextComplete(false);
     setShowReward(false);
     setPendingReward(null);
+    setInteractionLocked(false);
     setPanelText(scene?.text ?? '');
-  }, [scene?.id, scene?.text]);
+
+    if (scene?.id === 'scene_007') {
+      setSceneEffect('power-on');
+      sceneEffectTimerRef.current = setTimeout(() => {
+        setSceneEffect('none');
+      }, POWER_ON_DURATION_MS);
+    } else {
+      setSceneEffect('none');
+    }
+
+    return clearTimers;
+  }, [clearTimers, scene?.id, scene?.text]);
 
   const handleTextComplete = useCallback(() => {
     setTextComplete(true);
+
+    const silentReward = scene ? NEO_CITY_SILENT_REWARDS[scene.id] : undefined;
+    if (silentReward) {
+      collectItem(silentReward);
+    }
+
+    const autoNext = scene ? NEO_CITY_AUTO_NAVIGATE[scene.id] : undefined;
+    if (autoNext) {
+      setInteractionLocked(true);
+      autoNavigateTimerRef.current = setTimeout(() => {
+        void navigateToScene(autoNext);
+      }, AUTO_NAVIGATE_DELAY_MS);
+      return;
+    }
 
     if (rewardId) {
       setPendingReward(rewardId);
       setShowReward(true);
       collectItem(rewardId);
     }
-  }, [collectItem, rewardId]);
+  }, [collectItem, navigateToScene, rewardId, scene]);
 
   const handleHotspotClick = (hotspot: HotspotConfig) => {
-    if (!textComplete) {
+    if (interactionLocked || showReward) {
+      return;
+    }
+
+    if (!earlyHotspots && !textComplete) {
       return;
     }
 
@@ -92,11 +155,21 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
 
     if (hotspot.action === 'dialog' && hotspot.dialog) {
       setPanelText(hotspot.dialog);
-      setTextComplete(false);
+      setTextComplete(true);
       return;
     }
 
     if (hotspot.action === 'navigate' && hotspot.nextScene) {
+      if (hotspot.id === 'box') {
+        setInteractionLocked(true);
+        setSceneEffect('box-open');
+        sceneEffectTimerRef.current = setTimeout(() => {
+          setSceneEffect('none');
+          void navigateToScene(hotspot.nextScene!);
+        }, BOX_OPEN_DURATION_MS);
+        return;
+      }
+
       void navigateToScene(hotspot.nextScene);
     }
   };
@@ -119,6 +192,12 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
     navigate('/world');
   };
 
+  const hotspotsEnabled =
+    !interactionLocked &&
+    !showReward &&
+    sceneEffect !== 'box-open' &&
+    (earlyHotspots || textComplete);
+
   return (
     <div className={styles.storyScreen}>
       <div className={styles.layoutLayer}>
@@ -129,13 +208,15 @@ function StoryPlayer({ projectId, storyId }: StoryPlayerProps) {
         ) : scene ? (
           <SceneTransition sceneKey={scene.id}>
             <StoryView
+              sceneId={scene.id}
               sceneTitle={scene.title}
               panelText={panelText}
               imageSrc={backgroundUrl}
               imageAlt={scene.title ?? 'Сцена'}
               hotspots={hotspots}
-              hotspotsEnabled={textComplete && !showReward}
-              dimmed={transitioning || showReward}
+              hotspotsEnabled={hotspotsEnabled}
+              dimmed={transitioning || showReward || interactionLocked}
+              sceneEffect={sceneEffect}
               textComplete={textComplete}
               isEnding={isEnding}
               showReward={showReward}

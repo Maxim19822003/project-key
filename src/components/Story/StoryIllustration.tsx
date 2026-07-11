@@ -1,4 +1,7 @@
-import { InteractiveScene } from '@/components/InteractiveScene';
+import {
+  InteractiveScene,
+  type SceneEffect,
+} from '@/components/InteractiveScene';
 import { rectToPercentStyle } from '@/game/layout/rectToStyle';
 import type { LayoutRect } from '@/game/layout/types';
 import type { HotspotConfig } from '@/game/types';
@@ -11,6 +14,7 @@ type StoryIllustrationProps = {
   hotspots: HotspotConfig[];
   hotspotsEnabled: boolean;
   dimmed: boolean;
+  sceneEffect?: SceneEffect;
   onHotspotClick: (hotspot: HotspotConfig) => void;
 };
 
@@ -21,6 +25,7 @@ export function StoryIllustration({
   hotspots,
   hotspotsEnabled,
   dimmed,
+  sceneEffect = 'none',
   onHotspotClick,
 }: StoryIllustrationProps) {
   return (
@@ -31,6 +36,7 @@ export function StoryIllustration({
         hotspots={hotspots}
         hotspotsEnabled={hotspotsEnabled}
         dimmed={dimmed}
+        sceneEffect={sceneEffect}
         onHotspotClick={onHotspotClick}
       />
     </div>

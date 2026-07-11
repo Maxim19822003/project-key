@@ -20,20 +20,6 @@ export function getSectorStateVisual(
   return getWorldMapStateVisuals()[visualState];
 }
 
-const AVAILABLE_GLOW = {
-  fill: 'rgba(108, 92, 231, 0.22)',
-  stroke: 'rgba(108, 92, 231, 0.85)',
-  strokeWidth: 0.45,
-  opacity: 0.9,
-} as const;
-
-const COMPLETED_GLOW = {
-  fill: 'rgba(46, 204, 113, 0.22)',
-  stroke: 'rgba(72, 160, 255, 0.85)',
-  strokeWidth: 0.45,
-  opacity: 0.95,
-} as const;
-
 const HIDDEN_STYLE = {
   fill: 'transparent',
   stroke: 'transparent',
@@ -51,22 +37,10 @@ export function getSectorInteractiveStyle(
   strokeWidth: number;
   opacity: number;
 } {
-  if (debug) {
-    const state = isActive ? 'active' : visualState;
-    return getSectorStateVisual(state);
-  }
-
-  if (visualState === 'locked' || !isActive) {
+  if (!debug) {
     return HIDDEN_STYLE;
   }
 
-  if (visualState === 'completed') {
-    return COMPLETED_GLOW;
-  }
-
-  if (visualState === 'available') {
-    return AVAILABLE_GLOW;
-  }
-
-  return HIDDEN_STYLE;
+  const state = isActive ? 'active' : visualState;
+  return getSectorStateVisual(state);
 }

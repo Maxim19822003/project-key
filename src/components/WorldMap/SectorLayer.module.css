@@ -19,21 +19,53 @@
   pointer-events: none;
 }
 
-.hitGroup {
-  cursor: pointer;
+.hitGroup,
+.hitGroupAvailable,
+.hitGroupCompleted,
+.hitGroupLocked {
   outline: none;
 }
 
-.hitShapeLocked {
+.hitGroupAvailable,
+.hitGroupCompleted,
+.hitGroup {
+  cursor: pointer;
+}
+
+.hitGroupLocked {
   cursor: not-allowed;
 }
 
 .hitShape {
   transition: fill 0.15s ease, stroke 0.15s ease, opacity 0.15s ease;
+  pointer-events: all;
 }
 
-.hitShapeActive {
-  cursor: pointer;
+.lockOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lockIcon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 1.35rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.65));
+  animation: lockFadeIn 0.15s ease;
+}
+
+@keyframes lockFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .debugOverlay {

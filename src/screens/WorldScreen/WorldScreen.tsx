@@ -1,4 +1,4 @@
-import { BottomBar, TopBar, WorldMapView } from '@/components';
+import { BottomBar, GlobalToast, TopBar, WorldMapView } from '@/components';
 import { getWorldMapRegions, isWorldMapDebugEnabled } from '@/game/world';
 import { useWorldMap } from '@/hooks/useWorldMap';
 import '@/styles/screen.css';
@@ -8,7 +8,7 @@ const regions = getWorldMapRegions();
 const worldMapDebug = isWorldMapDebugEnabled();
 
 export function WorldScreen() {
-  const { config, sectors, handleSectorClick } = useWorldMap();
+  const { config, sectors, toastMessage, handleSectorClick } = useWorldMap();
 
   return (
     <div
@@ -28,6 +28,9 @@ export function WorldScreen() {
           debug={worldMapDebug}
           onSectorClick={handleSectorClick}
         />
+        {toastMessage && (
+          <GlobalToast type="error" message={toastMessage} />
+        )}
       </div>
       <div className={styles.bottomZone}>
         <BottomBar />

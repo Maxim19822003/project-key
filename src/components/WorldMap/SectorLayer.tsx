@@ -14,22 +14,30 @@ type SectorLayerProps = {
   onSectorClick: (sector: WorldHotspotView) => void;
 };
 
+function getHitGroupClass(sector: WorldHotspotView, debug: boolean): string {
+  if (debug) {
+    return styles.hitGroup;
+  }
+
+  if (sector.status === 'locked') {
+    return styles.hitGroupLocked;
+  }
+
+  if (sector.status === 'completed') {
+    return styles.hitGroupCompleted;
+  }
+
+  return styles.hitGroupAvailable;
+}
+
 function renderHitShape(
   sector: WorldHotspotView,
   style: ReturnType<typeof getSectorInteractiveStyle>,
-  isActive: boolean,
 ) {
   const shape = getSectorShapeRenderData(sector.shape, sector.center);
-  const className = [
-    styles.hitShape,
-    isActive ? styles.hitShapeActive : '',
-    sector.status === 'locked' ? styles.hitShapeLocked : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
 
   const shapeProps = {
-    className,
+    className: styles.hitShape,
     fill: style.fill,
     stroke: style.stroke,
     strokeWidth: style.strokeWidth,
@@ -73,10 +81,11 @@ export function SectorLayer({
       >
         {sectors.map((sector) => {
           const isActive = activeSectorId === sector.id;
+          const isLocked = sector.status === 'locked';
           const style = getSectorInteractiveStyle(
             sector.visualState,
             debug,
-            isActive,
+            !isLocked && isActive,
           );
 
           return (
@@ -100,7 +109,7 @@ export function SectorLayer({
                 role="button"
                 tabIndex={disabled ? -1 : 0}
                 aria-label={sector.title}
-                className={styles.hitGroup}
+                className={getHitGroupClass(sector, debug)}
                 onClick={() => {
                   if (!disabled) {
                     onSectorClick(sector);
@@ -117,7 +126,7 @@ export function SectorLayer({
                   }
                 }}
               >
-                {renderHitShape(sector, style, isActive)}
+                {renderHitShape(sector, style)}
               </g>
 
               {debug && (
@@ -164,6 +173,29 @@ export function SectorLayer({
           );
         })}
       </svg>
+
+      {!debug && (
+        <div className={styles.lockOverlay} aria-hidden="true">
+          {sectors.map((sector) => {
+            if (sector.status !== 'locked' || activeSectorId !== sector.id) {
+              return null;
+            }
+
+            return (
+              <span
+                key={sector.id}
+                className={styles.lockIcon}
+                style={{
+                  left: `${sector.iconPosition.x}%`,
+                  top: `${sector.iconPosition.y}%`,
+                }}
+              >
+                🔒
+              </span>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
